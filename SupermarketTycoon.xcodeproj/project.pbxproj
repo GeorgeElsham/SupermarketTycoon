@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */; };
+		F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6F125791D3C00089750 /* ContentView.swift */; };
+		F3CAA6F425791D3D00089750 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3CAA6F325791D3D00089750 /* Assets.xcassets */; };
+		F3CAA6F725791D3D00089750 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3CAA6F625791D3D00089750 /* Preview Assets.xcassets */; };
+		F3CAA6F925791D3D00089750 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6F825791D3D00089750 /* Persistence.swift */; };
+		F3CAA6FC25791D3D00089750 /* SupermarketTycoon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6FA25791D3D00089750 /* SupermarketTycoon.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupermarketTycoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketTycoonApp.swift; sourceTree = "<group>"; };
+		F3CAA6F125791D3C00089750 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F3CAA6F325791D3D00089750 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3CAA6F625791D3D00089750 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3CAA6F825791D3D00089750 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		F3CAA6FB25791D3D00089750 /* SupermarketTycoon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SupermarketTycoon.xcdatamodel; sourceTree = "<group>"; };
+		F3CAA6FD25791D3D00089750 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3CAA6FE25791D3D00089750 /* SupermarketTycoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SupermarketTycoon.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F3CAA6E925791D3C00089750 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F3CAA6E325791D3C00089750 = {
+			isa = PBXGroup;
+			children = (
+				F3CAA6EE25791D3C00089750 /* SupermarketTycoon */,
+				F3CAA6ED25791D3C00089750 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F3CAA6ED25791D3C00089750 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3CAA6EE25791D3C00089750 /* SupermarketTycoon */ = {
+			isa = PBXGroup;
+			children = (
+				F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */,
+				F3CAA6F125791D3C00089750 /* ContentView.swift */,
+				F3CAA6F325791D3D00089750 /* Assets.xcassets */,
+				F3CAA6F825791D3D00089750 /* Persistence.swift */,
+				F3CAA6FD25791D3D00089750 /* Info.plist */,
+				F3CAA6FE25791D3D00089750 /* SupermarketTycoon.entitlements */,
+				F3CAA6FA25791D3D00089750 /* SupermarketTycoon.xcdatamodeld */,
+				F3CAA6F525791D3D00089750 /* Preview Content */,
+			);
+			path = SupermarketTycoon;
+			sourceTree = "<group>";
+		};
+		F3CAA6F525791D3D00089750 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F3CAA6F625791D3D00089750 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F3CAA6EB25791D3C00089750 /* SupermarketTycoon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "SupermarketTycoon" */;
+			buildPhases = (
+				F3CAA6E825791D3C00089750 /* Sources */,
+				F3CAA6E925791D3C00089750 /* Frameworks */,
+				F3CAA6EA25791D3C00089750 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SupermarketTycoon;
+			productName = SupermarketTycoon;
+			productReference = F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3CAA6E425791D3C00089750 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					F3CAA6EB25791D3C00089750 = {
+						CreatedOnToolsVersion = 12.2;
+					};
+				};
+			};
+			buildConfigurationList = F3CAA6E725791D3C00089750 /* Build configuration list for PBXProject "SupermarketTycoon" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3CAA6E325791D3C00089750;
+			productRefGroup = F3CAA6ED25791D3C00089750 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3CAA6EB25791D3C00089750 /* SupermarketTycoon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F3CAA6EA25791D3C00089750 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3CAA6F725791D3D00089750 /* Preview Assets.xcassets in Resources */,
+				F3CAA6F425791D3D00089750 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3CAA6E825791D3C00089750 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3CAA6F925791D3D00089750 /* Persistence.swift in Sources */,
+				F3CAA6FC25791D3D00089750 /* SupermarketTycoon.xcdatamodeld in Sources */,
+				F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */,
+				F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F3CAA6FF25791D3D00089750 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3CAA70025791D3D00089750 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		F3CAA70225791D3D00089750 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupermarketTycoon/SupermarketTycoon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SupermarketTycoon/Preview Content\"";
+				DEVELOPMENT_TEAM = N6WWZ77X7N;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SupermarketTycoon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.George-Elsham.SupermarketTycoon";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F3CAA70325791D3D00089750 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupermarketTycoon/SupermarketTycoon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SupermarketTycoon/Preview Content\"";
+				DEVELOPMENT_TEAM = N6WWZ77X7N;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SupermarketTycoon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.George-Elsham.SupermarketTycoon";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3CAA6E725791D3C00089750 /* Build configuration list for PBXProject "SupermarketTycoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3CAA6FF25791D3D00089750 /* Debug */,
+				F3CAA70025791D3D00089750 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "SupermarketTycoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3CAA70225791D3D00089750 /* Debug */,
+				F3CAA70325791D3D00089750 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F3CAA6FA25791D3D00089750 /* SupermarketTycoon.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F3CAA6FB25791D3D00089750 /* SupermarketTycoon.xcdatamodel */,
+			);
+			currentVersion = F3CAA6FB25791D3D00089750 /* SupermarketTycoon.xcdatamodel */;
+			path = SupermarketTycoon.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F3CAA6E425791D3C00089750 /* Project object */;
+}
