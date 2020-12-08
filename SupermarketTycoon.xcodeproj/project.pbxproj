@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F30AC2B1257A5BF6004CF275 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AD257A5BF6004CF275 /* OpenSans-Regular.ttf */; };
+		F30AC2B2257A5BF6004CF275 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AE257A5BF6004CF275 /* OpenSans-Semibold.ttf */; };
+		F30AC2B3257A5BF6004CF275 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */; };
+		F30AC2B4257A5BF6004CF275 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2B0257A5BF6004CF275 /* OpenSans-Bold.ttf */; };
+		F30C9FB2257F7C83003CCCED /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30C9FB1257F7C83003CCCED /* MenuView.swift */; };
+		F30C9FB7257F7FFB003CCCED /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30C9FB6257F7FFB003CCCED /* SidebarView.swift */; };
+		F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAED257F822600C24E18 /* LargeButton.swift */; };
+		F34DFAF4257F827A00C24E18 /* Ext-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAF3257F827A00C24E18 /* Ext-View.swift */; };
 		F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */; };
 		F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6F125791D3C00089750 /* ContentView.swift */; };
 		F3CAA6F425791D3D00089750 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3CAA6F325791D3D00089750 /* Assets.xcassets */; };
@@ -16,7 +24,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupermarketTycoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30AC2AD257A5BF6004CF275 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		F30AC2AE257A5BF6004CF275 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F30AC2B0257A5BF6004CF275 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		F30C9FB1257F7C83003CCCED /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		F30C9FB6257F7FFB003CCCED /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F34DFAED257F822600C24E18 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
+		F34DFAF3257F827A00C24E18 /* Ext-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext-View.swift"; sourceTree = "<group>"; };
+		F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Supermarket Tycoon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketTycoonApp.swift; sourceTree = "<group>"; };
 		F3CAA6F125791D3C00089750 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3CAA6F325791D3D00089750 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +54,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F30AC2A6257A5BAD004CF275 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F30AC2B0257A5BF6004CF275 /* OpenSans-Bold.ttf */,
+				F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */,
+				F30AC2AD257A5BF6004CF275 /* OpenSans-Regular.ttf */,
+				F30AC2AE257A5BF6004CF275 /* OpenSans-Semibold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F30C9FAF257F7C48003CCCED /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F30C9FB0257F7C51003CCCED /* Menu */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F30C9FB0257F7C51003CCCED /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				F30C9FB1257F7C83003CCCED /* MenuView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		F30C9FB5257F7FF0003CCCED /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F3CAA6F125791D3C00089750 /* ContentView.swift */,
+				F30C9FB6257F7FFB003CCCED /* SidebarView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F34DFAEC257F821B00C24E18 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F34DFAED257F822600C24E18 /* LargeButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F34DFAF2257F826B00C24E18 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F34DFAF3257F827A00C24E18 /* Ext-View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		F3CAA6E325791D3C00089750 = {
 			isa = PBXGroup;
 			children = (
@@ -49,7 +117,7 @@
 		F3CAA6ED25791D3C00089750 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */,
+				F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,12 +126,16 @@
 			isa = PBXGroup;
 			children = (
 				F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */,
-				F3CAA6F125791D3C00089750 /* ContentView.swift */,
-				F3CAA6F325791D3D00089750 /* Assets.xcassets */,
 				F3CAA6F825791D3D00089750 /* Persistence.swift */,
+				F30C9FB5257F7FF0003CCCED /* Main */,
+				F30C9FAF257F7C48003CCCED /* Screens */,
+				F34DFAEC257F821B00C24E18 /* Components */,
+				F34DFAF2257F826B00C24E18 /* Extensions */,
+				F3CAA6F325791D3D00089750 /* Assets.xcassets */,
 				F3CAA6FD25791D3D00089750 /* Info.plist */,
 				F3CAA6FE25791D3D00089750 /* SupermarketTycoon.entitlements */,
 				F3CAA6FA25791D3D00089750 /* SupermarketTycoon.xcdatamodeld */,
+				F30AC2A6257A5BAD004CF275 /* Fonts */,
 				F3CAA6F525791D3D00089750 /* Preview Content */,
 			);
 			path = SupermarketTycoon;
@@ -80,9 +152,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F3CAA6EB25791D3C00089750 /* SupermarketTycoon */ = {
+		F3CAA6EB25791D3C00089750 /* Supermarket Tycoon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "SupermarketTycoon" */;
+			buildConfigurationList = F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "Supermarket Tycoon" */;
 			buildPhases = (
 				F3CAA6E825791D3C00089750 /* Sources */,
 				F3CAA6E925791D3C00089750 /* Frameworks */,
@@ -92,9 +164,9 @@
 			);
 			dependencies = (
 			);
-			name = SupermarketTycoon;
+			name = "Supermarket Tycoon";
 			productName = SupermarketTycoon;
-			productReference = F3CAA6EC25791D3C00089750 /* SupermarketTycoon.app */;
+			productReference = F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +196,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F3CAA6EB25791D3C00089750 /* SupermarketTycoon */,
+				F3CAA6EB25791D3C00089750 /* Supermarket Tycoon */,
 			);
 		};
 /* End PBXProject section */
@@ -134,8 +206,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30AC2B2257A5BF6004CF275 /* OpenSans-Semibold.ttf in Resources */,
 				F3CAA6F725791D3D00089750 /* Preview Assets.xcassets in Resources */,
+				F30AC2B4257A5BF6004CF275 /* OpenSans-Bold.ttf in Resources */,
+				F30AC2B1257A5BF6004CF275 /* OpenSans-Regular.ttf in Resources */,
 				F3CAA6F425791D3D00089750 /* Assets.xcassets in Resources */,
+				F30AC2B3257A5BF6004CF275 /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +222,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30C9FB2257F7C83003CCCED /* MenuView.swift in Sources */,
 				F3CAA6F925791D3D00089750 /* Persistence.swift in Sources */,
+				F34DFAF4257F827A00C24E18 /* Ext-View.swift in Sources */,
 				F3CAA6FC25791D3D00089750 /* SupermarketTycoon.xcdatamodeld in Sources */,
 				F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */,
+				F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */,
 				F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */,
+				F30C9FB7257F7FFB003CCCED /* SidebarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +411,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "SupermarketTycoon" */ = {
+		F3CAA70125791D3D00089750 /* Build configuration list for PBXNativeTarget "Supermarket Tycoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3CAA70225791D3D00089750 /* Debug */,
