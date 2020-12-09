@@ -8,31 +8,26 @@
 import SwiftUI
 
 
+/// Holds all app content.
 struct ContentView: View {
     
-    var body: some View {
-        GeometryReader { geo in
-            NavigationView {
-                SidebarView()
-                    .frame(width: geo.size.width - (geo.size.height * 1.6))
-                
-                MenuView()
-                    .frame(width: geo.size.height * 1.6)
-            }
-        }
-        .toolbar {
-            Button("Toggle sidebar") {
-                toggleSidebar()
-            }
-        }
-    }
+    @State private var state: AppState = .menu
     
-    /// The sidebar may not be showing, so a button in the toolbar is used to toggle it.
-    private func toggleSidebar() {
-        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    var body: some View {
+        switch state {
+        case .menu:
+            MenuView(state: $state)
+        case .game:
+            GameView()
+        default:
+            AppView {
+                Text("Unavailable")
+            } sidebar: {
+                EmptyView()
+            }
+        }
     }
 }
-
 
 
 struct ContentView_Previews: PreviewProvider {

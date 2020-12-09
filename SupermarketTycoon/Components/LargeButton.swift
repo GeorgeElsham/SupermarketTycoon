@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+/// Large button used globally across the app.
 struct LargeButton: View {
     
     private let title: String
@@ -28,5 +29,13 @@ struct LargeButton: View {
                 .cornerRadius(40)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+}
+
+
+struct LargeButton_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        LargeButton("Title") {}
     }
 }
