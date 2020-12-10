@@ -11,35 +11,32 @@ import SwiftUI
 /// Initial menu screen.
 struct MenuView: View {
     
-    @Binding private var state: AppState
-    
-    init(state: Binding<AppState>) {
-        _state = state
-    }
+    @EnvironmentObject private var state: AppState
     
     var body: some View {
         AppView {
             ZStack {
                 Image("Menu")
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fit)
                 
                 VStack {
                     HStack {
                         VStack(spacing: 50) {
                             LargeButton("Play") {
-                                print("Play")
-                                state = .game
+                                AppState.toggleSidebar()
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                    state.screen = .game
+                                }
                             }
                             
                             LargeButton("Instructions") {
-                                print("Instructions")
-                                state = .instructions
+                                state.screen = .instructions
                             }
                             
                             LargeButton("Leader board") {
-                                print("Leader board")
-                                state = .leaderBoard
+                                state.screen = .leaderBoard
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -52,8 +49,6 @@ struct MenuView: View {
                         .frame(height: 190)
                 }
             }
-        } sidebar: {
-            Color("Grass")
         }
     }
 }
@@ -62,6 +57,6 @@ struct MenuView: View {
 struct MenuView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MenuView(state: .constant(.menu))
+        MenuView()
     }
 }

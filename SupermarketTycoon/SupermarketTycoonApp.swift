@@ -21,5 +21,8 @@ struct SupermarketTycoonApp: App {
 //                    persistenceController.container.viewContext
 //                )
         }
+        .commands {
+            SidebarCommands()
+        }
     }
 }

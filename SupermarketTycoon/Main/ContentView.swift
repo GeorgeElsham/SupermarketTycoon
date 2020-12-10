@@ -11,19 +11,25 @@ import SwiftUI
 /// Holds all app content.
 struct ContentView: View {
     
-    @State private var state: AppState = .menu
+    @ObservedObject private var state = AppState()
     
     var body: some View {
-        switch state {
+        switch state.screen {
         case .menu:
-            MenuView(state: $state)
+            MenuView()
+                .environmentObject(state)
+            
         case .game:
             GameView()
+                .environmentObject(state)
+            
+        case .instructions:
+            InstructionsView()
+                .environmentObject(state)
+            
         default:
             AppView {
                 Text("Unavailable")
-            } sidebar: {
-                EmptyView()
             }
         }
     }

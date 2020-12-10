@@ -12,6 +12,7 @@
 		F30AC2B3257A5BF6004CF275 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */; };
 		F30AC2B4257A5BF6004CF275 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2B0257A5BF6004CF275 /* OpenSans-Bold.ttf */; };
 		F30C9FB2257F7C83003CCCED /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30C9FB1257F7C83003CCCED /* MenuView.swift */; };
+		F349C80725821A4400146D50 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F349C80625821A4400146D50 /* InstructionsView.swift */; };
 		F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAED257F822600C24E18 /* LargeButton.swift */; };
 		F34DFAF4257F827A00C24E18 /* Ext-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAF3257F827A00C24E18 /* Ext-View.swift */; };
 		F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */; };
@@ -32,6 +33,7 @@
 		F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F30AC2B0257A5BF6004CF275 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		F30C9FB1257F7C83003CCCED /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		F349C80625821A4400146D50 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		F34DFAED257F822600C24E18 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		F34DFAF3257F827A00C24E18 /* Ext-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext-View.swift"; sourceTree = "<group>"; };
 		F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Supermarket Tycoon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 			children = (
 				F30C9FB0257F7C51003CCCED /* Menu */,
 				F3CAC6E32580FE0300EBF08E /* Game */,
+				F349C80525821A3000146D50 /* Instructions */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -96,6 +99,14 @@
 				F3CAC6F0258118C700EBF08E /* AppState.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		F349C80525821A3000146D50 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				F349C80625821A4400146D50 /* InstructionsView.swift */,
+			);
+			path = Instructions;
 			sourceTree = "<group>";
 		};
 		F34DFAEC257F821B00C24E18 /* Components */ = {
@@ -240,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3CAC6EA2581011100EBF08E /* GameScene.swift in Sources */,
+				F349C80725821A4400146D50 /* InstructionsView.swift in Sources */,
 				F30C9FB2257F7C83003CCCED /* MenuView.swift in Sources */,
 				F3CAA6F925791D3D00089750 /* Persistence.swift in Sources */,
 				F34DFAF4257F827A00C24E18 /* Ext-View.swift in Sources */,

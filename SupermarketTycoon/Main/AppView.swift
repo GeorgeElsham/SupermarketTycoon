@@ -9,36 +9,68 @@ import SwiftUI
 
 
 /// Template for every screen of the app.
-struct AppView<Main: View, Sidebar: View>: View {
+struct AppView<Main: View>: View {
+    
+    /// Type for the sidebar content, which may not exist.
+    private enum SidebarType {
+        case sidebar(AnyView)
+        case none
+    }
+    
+    @EnvironmentObject private var state: AppState
     
     private let main: () -> Main
-    private let sidebar: () -> Sidebar
+    private let sidebar: SidebarType
     
-    init(@ViewBuilder main: @escaping () -> Main, @ViewBuilder sidebar: @escaping () -> Sidebar) {
+    init<Sidebar: View>(@ViewBuilder main: @escaping () -> Main, @ViewBuilder sidebar: @escaping () -> Sidebar) {
         self.main = main
-        self.sidebar = sidebar
+        self.sidebar = .sidebar(AnyView(sidebar()))
+    }
+    
+    init(@ViewBuilder main: @escaping () -> Main) {
+        self.main = main
+        self.sidebar = .none
     }
     
     var body: some View {
         GeometryReader { geo in
             NavigationView {
-                sidebar()
-                    .frame(width: geo.size.width - (geo.size.height * 1.6))
-                
-                main()
-                    .frame(width: geo.size.height * 1.6)
+                switch sidebar {
+                case let .sidebar(sidebar):
+                    sidebar
+                        .frame(width: geo.size.width - (geo.size.height * 1.6))
+                    
+                    main()
+                        .frame(width: geo.size.height * 1.6)
+                    
+                case .none:
+                    EmptyView()
+                    
+                    ZStack(alignment: .bottom) {
+                        Color("Background")
+                        
+                        Color("Grass")
+                            .frame(height: geo.size.height * 19 / 90)
+                        
+                        main()
+                    }
+                    .frame(width: geo.size.width)
+                }
             }
         }
         .toolbar {
-            Button("Toggle sidebar") {
-                toggleSidebar()
+            Button("Menu") {
+                // If was just in game, close sidebar
+                if state.screen == .game {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+                        AppState.toggleSidebar()
+                    }
+                }
+                
+                // Go to menu screen
+                state.screen = .menu
             }
         }
-    }
-    
-    /// The sidebar may not be showing, so a button in the toolbar is used to toggle it.
-    private func toggleSidebar() {
-        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 }
 

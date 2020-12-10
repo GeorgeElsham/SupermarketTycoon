@@ -5,13 +5,27 @@
 //  Created by George Elsham on 09/12/2020.
 //
 
-import Foundation
+import AppKit
 
 
-/// Stores the current state of the app.
-enum AppState {
-    case menu
-    case game
-    case instructions
-    case leaderBoard
+/// Stores the states for the app.
+class AppState: ObservableObject {
+    
+    enum Screen {
+        case menu
+        case game
+        case instructions
+        case leaderBoard
+    }
+    
+    @Published var screen: Screen = .menu
+}
+
+
+extension AppState {
+    
+    /// The sidebar may not be showing, so a button in the toolbar is used to toggle it.
+    static func toggleSidebar() {
+        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    }
 }
