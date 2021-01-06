@@ -44,7 +44,13 @@ struct AppView<Main: View>: View {
                         .frame(width: geo.size.height * 1.6)
                     
                 case .none:
-                    EmptyView()
+                    ZStack(alignment: .bottom) {
+                        Color("Background")
+                        
+                        Color("Grass")
+                            .frame(height: geo.size.height * 19 / 90)
+                    }
+                    .frame(width: geo.size.width - (geo.size.height * 1.6))
                     
                     ZStack(alignment: .bottom) {
                         Color("Background")
@@ -54,21 +60,13 @@ struct AppView<Main: View>: View {
                         
                         main()
                     }
-                    .frame(width: geo.size.width)
+                    .frame(width: geo.size.height * 1.6)
                 }
             }
         }
         .toolbar {
             Button("Menu") {
-                // If was just in game, close sidebar
-                if state.screen == .game {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
-                        AppState.toggleSidebar()
-                    }
-                }
-                
-                // Go to menu screen
-                state.screen = .menu
+                state.change(to: .menu)
             }
         }
     }

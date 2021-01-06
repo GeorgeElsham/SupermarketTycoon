@@ -24,19 +24,15 @@ struct MenuView: View {
                     HStack {
                         VStack(spacing: 50) {
                             LargeButton("Play") {
-                                AppState.toggleSidebar()
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                                    state.screen = .game
-                                }
+                                state.change(to: .game)
                             }
                             
                             LargeButton("Instructions") {
-                                state.screen = .instructions
+                                state.change(to: .instructions)
                             }
                             
                             LargeButton("Leader board") {
-                                state.screen = .leaderBoard
+                                state.change(to: .leaderBoard)
                             }
                         }
                         .frame(maxWidth: .infinity)

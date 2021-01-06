@@ -18,7 +18,11 @@ class AppState: ObservableObject {
         case leaderBoard
     }
     
-    @Published var screen: Screen = .menu
+    @Published private(set) var screen: Screen = .menu
+    
+    func change(to screen: Screen) {
+        self.screen = screen
+    }
 }
 
 
