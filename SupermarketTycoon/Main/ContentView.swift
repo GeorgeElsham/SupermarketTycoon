@@ -31,6 +31,7 @@ struct ContentView: View {
             AppView {
                 Text("Unavailable")
             }
+            .environmentObject(state)
         }
     }
 }

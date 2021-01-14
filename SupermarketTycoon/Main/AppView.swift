@@ -38,7 +38,7 @@ struct AppView<Main: View>: View {
                 switch sidebar {
                 case let .sidebar(sidebar):
                     sidebar
-                        .frame(width: geo.size.width - (geo.size.height * 1.6))
+                        .frame(width: max(geo.size.width - (geo.size.height * 1.6), 0))
                     
                     main()
                         .frame(width: geo.size.height * 1.6)
@@ -50,7 +50,7 @@ struct AppView<Main: View>: View {
                         Color("Grass")
                             .frame(height: geo.size.height * 19 / 90)
                     }
-                    .frame(width: geo.size.width - (geo.size.height * 1.6))
+                    .frame(width: max(geo.size.width - (geo.size.height * 1.6), 0))
                     
                     ZStack(alignment: .bottom) {
                         Color("Background")
