@@ -11,12 +11,14 @@ import SpriteKit
 /// `SpriteKit` game scene.
 class GameScene: SKScene {
     
+    var money: Int = 0
+    var center: CGPoint {
+        CGPoint(x: frame.midX, y: frame.midY)
+    }
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        #warning("Temporary")
-        let node = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 100))
-        node.position = CGPoint(x: 300, y: 200)
-        addChild(node)
+        setupAll()
     }
 }

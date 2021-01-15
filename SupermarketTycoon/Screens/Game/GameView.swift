@@ -15,11 +15,17 @@ struct GameView: View {
     var body: some View {
         AppView {
             GeometryReader { geo in
-                SpriteView(scene: GameScene(size: geo.size))
+                SpriteView(scene: makeGameScene(size: geo.size))
             }
         } sidebar: {
             Color("Grass")
         }
+    }
+    
+    private func makeGameScene(size: CGSize) -> GameScene {
+        let scene = GameScene(size: size)
+        scene.view?.ignoresSiblingOrder = true
+        return scene
     }
 }
 
