@@ -25,15 +25,17 @@ extension GameScene {
     private func setupMoney() {
         let moneyLabel = SKLabelNode(text: "Money:")
         moneyLabel.fontColor = .black
+        moneyLabel.horizontalAlignmentMode = .left
         moneyLabel.fontName = "OpenSans-Semibold"
-        moneyLabel.position = CGPoint(x: 100, y: 160)
+        moneyLabel.position = CGPoint(x: 50, y: 160)
         addChild(moneyLabel)
         
         // Current money/balance
-        let balLabel = SKLabelNode(text: "\(money)")
+        let balLabel = SKLabelNode(text: "$\(money)")
         balLabel.fontColor = .black
+        balLabel.horizontalAlignmentMode = .left
         balLabel.fontName = "OpenSans-Semibold"
-        balLabel.position = CGPoint(x: 100, y: 80)
+        balLabel.position = CGPoint(x: 50, y: 100)
         addChild(balLabel)
     }
 }
