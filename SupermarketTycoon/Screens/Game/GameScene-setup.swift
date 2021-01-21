@@ -31,7 +31,7 @@ extension GameScene {
         addChild(moneyLabel)
         
         // Current money/balance
-        let balLabel = SKLabelNode(text: "$\(money)")
+        let balLabel = SKLabelNode(text: "£\(money)")
         balLabel.fontColor = .black
         balLabel.horizontalAlignmentMode = .left
         balLabel.fontName = "OpenSans-Semibold"
