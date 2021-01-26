@@ -16,6 +16,8 @@
 		F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAED257F822600C24E18 /* LargeButton.swift */; };
 		F34DFAF4257F827A00C24E18 /* Ext-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34DFAF3257F827A00C24E18 /* Ext-View.swift */; };
 		F350842B25C01EF9001324A0 /* GameScene-displayGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350842A25C01EF9001324A0 /* GameScene-displayGraph.swift */; };
+		F350843025C0230A001324A0 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350842F25C0230A001324A0 /* Person.swift */; };
+		F350843625C036DD001324A0 /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350843525C036DD001324A0 /* ShoppingItem.swift */; };
 		F355262525B99561002B10C6 /* PathGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355262425B99561002B10C6 /* PathGraph.swift */; };
 		F36C4BFD25B1B6DB0021EBD2 /* GameScene-setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */; };
 		F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */; };
@@ -40,6 +42,8 @@
 		F34DFAED257F822600C24E18 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		F34DFAF3257F827A00C24E18 /* Ext-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext-View.swift"; sourceTree = "<group>"; };
 		F350842A25C01EF9001324A0 /* GameScene-displayGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene-displayGraph.swift"; sourceTree = "<group>"; };
+		F350842F25C0230A001324A0 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		F350843525C036DD001324A0 /* ShoppingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
 		F355262425B99561002B10C6 /* PathGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathGraph.swift; sourceTree = "<group>"; };
 		F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene-setup.swift"; sourceTree = "<group>"; };
 		F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Supermarket Tycoon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +135,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F350843425C036C3001324A0 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				F350842F25C0230A001324A0 /* Person.swift */,
+				F350843525C036DD001324A0 /* ShoppingItem.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
 		F355262325B99550002B10C6 /* Pathfinding */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +202,7 @@
 				F3CAC6E52580FE1B00EBF08E /* GameView.swift */,
 				F3CAC6E92581011100EBF08E /* GameScene.swift */,
 				F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */,
+				F350843425C036C3001324A0 /* Person */,
 				F355262325B99550002B10C6 /* Pathfinding */,
 			);
 			path = Game;
@@ -267,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F350843625C036DD001324A0 /* ShoppingItem.swift in Sources */,
 				F3CAC6EA2581011100EBF08E /* GameScene.swift in Sources */,
 				F349C80725821A4400146D50 /* InstructionsView.swift in Sources */,
 				F30C9FB2257F7C83003CCCED /* MenuView.swift in Sources */,
@@ -281,6 +296,7 @@
 				F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */,
 				F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */,
 				F3CAC6F1258118C700EBF08E /* AppState.swift in Sources */,
+				F350843025C0230A001324A0 /* Person.swift in Sources */,
 				F36C4BFD25B1B6DB0021EBD2 /* GameScene-setup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

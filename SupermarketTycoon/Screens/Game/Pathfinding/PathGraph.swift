@@ -28,7 +28,7 @@ struct NodeGroup {
 /// Paths represented as a graph of points connected in a triangular formation.
 class PathGraph {
     
-    static let nodeGroups: [NodeGroup] = [
+    private(set) var nodeGroups: [NodeGroup] = [
         NodeGroup(
             id: 1,
             point: CGPoint(x: 720, y: 50),
@@ -171,12 +171,16 @@ class PathGraph {
         )
     ]
     
-    init() {}
+    init(sceneSize size: CGSize) {
+        nodeGroups = nodeGroups.map {
+            NodeGroup(id: $0.id, point: $0.point.scale(toFit: size), group: $0.group)
+        }
+    }
     
     /// Get the group associated with a specific `id`.
     /// - Parameter id: ID of `NodeGroup` to get.
     /// - Returns: `NodeGroup` with the given `id`.
-    static func getNodeGroup(with id: Int) -> NodeGroup {
+    func getNodeGroup(with id: Int) -> NodeGroup {
         guard 1 ... 28 ~= id else {
             fatalError("NodeGroup with id '\(id)' doesn't exist.")
         }
@@ -186,5 +190,19 @@ class PathGraph {
         }
         
         return nodeGroup
+    }
+}
+
+
+private extension CGPoint {
+    
+    /// Scales coordinates of the standard scene size to fit the whole scene size.
+    /// - Parameter size: Size of scene.
+    /// - Returns: New scaled point.
+    func scale(toFit size: CGSize) -> CGPoint {
+        let originalSize = CGSize(width: 1440, height: 900)
+        let ratio = size.width / originalSize.width
+        let newSize = CGPoint(x: x * ratio, y: y * ratio)
+        return newSize
     }
 }

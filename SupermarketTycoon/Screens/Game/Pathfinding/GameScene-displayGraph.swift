@@ -12,15 +12,15 @@ extension GameScene {
     
     /// Display all the paths customers can take.
     func displayGraph() {
-        for nodeGroup in PathGraph.nodeGroups {
+        for nodeGroup in graph.nodeGroups {
             for adjacentNode in nodeGroup.adjacentNodes {
                 // Prevents lines between nodes being drawn twice
                 guard adjacentNode.id < nodeGroup.id else { continue }
                 
                 // Create the lines
                 let path = CGMutablePath()
-                path.move(to: nodeGroup.point.scale(toFit: size))
-                path.addLine(to: PathGraph.getNodeGroup(with: adjacentNode.id).point.scale(toFit: size))
+                path.move(to: nodeGroup.point)
+                path.addLine(to: graph.getNodeGroup(with: adjacentNode.id).point)
                 path.closeSubpath()
                 
                 let line = SKShapeNode(path: path)
@@ -34,7 +34,7 @@ extension GameScene {
             let pointLabel = SKLabelNode(text: String(nodeGroup.id))
             pointLabel.verticalAlignmentMode = .center
             point.addChild(pointLabel)
-            point.position = nodeGroup.point.scale(toFit: size)
+            point.position = nodeGroup.point
             point.zPosition = 1.1
             addChild(point)
         }
