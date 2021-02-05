@@ -11,6 +11,7 @@ import GameKit
 // MARK: - C: GraphGeneration
 class GraphGeneration {
     
+    private static let pathCurveSize: CGFloat = 40
     unowned private var graph: PathGraph
     
     init(graph: PathGraph) {
@@ -97,26 +98,71 @@ class GraphGeneration {
             }
         }
         
-        // Create path
-        let path = CGMutablePath()
-        path.move(to: graph.getNodeGroup(with: person.graphPosition).point)
-        
-        current = allNodes[destination.id - 1]
+        // Generate path
+        current = allNodes[id: destination.id]!
         var fullPath: [NodeInfo] = [current]
         while let shortestRoute = current.closestIdToHere {
-            current = allNodes[shortestRoute - 1]
+            current = allNodes[id: shortestRoute]!
             fullPath.append(current)
         }
         fullPath.reverse()
         
-        for line in fullPath {
-            path.addLine(to: graph.getNodeGroup(with: line.id).point)
-        }
+        // Convert to smooth path
+        let pathPoints = fullPath.map { graph.getNodeGroup(with: $0.id).point }
+        let smoothPath = generatePath(from: pathPoints)
         
         // Make person walk along path
-        person.move(along: path, to: destination) {
+        person.move(along: smoothPath, to: destination) {
             completion()
         }
+    }
+    
+    /// Generates a smooth path from a series of points. Makes
+    /// walking look more natural as there are no sharp turns.
+    private func generatePath(from points: [CGPoint]) -> CGMutablePath {
+        // Make sure the path is a valid path-finding solution
+        guard let firstPoint = points.first else {
+            fatalError("Solution path is empty.")
+        }
+        
+        let path = CGMutablePath()
+        path.move(to: firstPoint)
+        
+        if points.count == 2 {
+            // Simple path
+            path.addLine(to: points[1])
+        } else {
+            // Complex path
+            var lastPoint = points.first!
+            
+            for (index, thisPoint) in points.enumerated() {
+                guard index != 0 else { continue }
+                guard index < points.count - 1 else { break }
+                
+                // Connect line from last point to just before current point
+                let vector = lastPoint.difference(to: thisPoint)
+                let unitVector = vector.unitVector
+                let newVector = unitVector.scale(by: vector.distance - min(GraphGeneration.pathCurveSize, vector.distance))
+                let newPoint = lastPoint.offset(by: newVector)
+                path.addLine(to: newPoint)
+                
+                // Curve round current point towards next point
+                let vector2 = thisPoint.difference(to: points[index + 1])
+                let unitVector2 = vector2.unitVector
+                let newVector2 = unitVector2.scale(by: min(GraphGeneration.pathCurveSize, vector2.distance))
+                let newPoint2 = thisPoint.offset(by: newVector2)
+                path.addQuadCurve(to: newPoint2, control: thisPoint)
+                lastPoint = newPoint2
+                
+                // Last iteration
+                if index == points.count - 2 {
+                    path.addLine(to: points[index + 1])
+                }
+            }
+        }
+        
+        // Return newly generated path
+        return path
     }
 }
 

@@ -18,4 +18,14 @@ extension CGSize {
     var distanceSquared: CGFloat {
         width * width + height * height
     }
+    
+    /// Unit vector of a vector.
+    var unitVector: CGSize {
+        scale(by: 1 / distance)
+    }
+    
+    /// Scale a vector by a scale factor.
+    func scale(by factor: CGFloat) -> CGSize {
+        CGSize(width: width * factor, height: height * factor)
+    }
 }

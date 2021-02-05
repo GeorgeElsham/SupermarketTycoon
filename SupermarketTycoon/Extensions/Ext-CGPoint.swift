@@ -13,4 +13,9 @@ extension CGPoint {
     func difference(to point: CGPoint) -> CGSize {
         CGSize(width: point.x - x, height: point.y - y)
     }
+    
+    /// Offsets a point by a given vector.
+    func offset(by vector: CGSize) -> CGPoint {
+        CGPoint(x: x + vector.width, y: y + vector.height)
+    }
 }
