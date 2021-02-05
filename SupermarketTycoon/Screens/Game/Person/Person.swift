@@ -17,7 +17,7 @@ class Person {
     ]
     
     let node: SKSpriteNode
-    let graphPosition: Int
+    var graphPosition: Int
     let name: String
     let shoppingList: [ShoppingItem]
     
@@ -33,5 +33,17 @@ class Person {
         node = SKSpriteNode(imageNamed: "person_customer")
         node.position = graph.getNodeGroup(with: graphPosition).point
         node.zPosition = 2
+    }
+    
+    /// Animate moving to a location by following a path.
+    func move(along path: CGPath, to destination: Node, completion: @escaping () -> Void) {
+        // Actions
+        let walk = SKAction.follow(path, asOffset: false, orientToPath: false, speed: 70)
+        
+        node.run(walk) { [weak self] in
+            guard let self = self else { return }
+            self.graphPosition = destination.id
+            completion()
+        }
     }
 }

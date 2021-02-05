@@ -11,7 +11,6 @@ import SpriteKit
 /// `SpriteKit` game scene.
 class GameScene: SKScene {
     
-    let debugMode: Bool = true
     private(set) var money: Int = 0
     private(set) var graph: PathGraph!
     var center: CGPoint {
@@ -21,14 +20,34 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        graph = PathGraph(sceneSize: size)
+        Settings.reset()
+        Settings.scene = self
+        graph = PathGraph()
         setupAll()
         
         let person = Person(in: graph)
         addChild(person.node)
         
-        if debugMode {
+        if Settings.debugMode {
             displayGraph()
         }
+        
+        #warning("Temporary moving default person to show it works.")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else { return }
+            self.graph.generation.pathFind(person: person, to: Node(id: 15)) {
+                print("Completion")
+            }
+        }
+    }
+}
+
+
+enum Settings {
+    static let debugMode: Bool = true
+    static var scene: GameScene?
+    
+    static func reset() {
+        scene = nil
     }
 }

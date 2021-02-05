@@ -28,6 +28,8 @@ struct NodeGroup {
 /// Paths represented as a graph of points connected in a triangular formation.
 class PathGraph {
     
+    static let nodeRange = 1 ... 28
+    lazy var generation = GraphGeneration(graph: self)
     private(set) var nodeGroups: [NodeGroup] = [
         NodeGroup(
             id: 1,
@@ -171,9 +173,9 @@ class PathGraph {
         )
     ]
     
-    init(sceneSize size: CGSize) {
+    init() {
         nodeGroups = nodeGroups.map {
-            NodeGroup(id: $0.id, point: $0.point.scale(toFit: size), group: $0.group)
+            NodeGroup(id: $0.id, point: scaledPoint($0.point), group: $0.group)
         }
     }
     
@@ -181,7 +183,7 @@ class PathGraph {
     /// - Parameter id: ID of `NodeGroup` to get.
     /// - Returns: `NodeGroup` with the given `id`.
     func getNodeGroup(with id: Int) -> NodeGroup {
-        guard 1 ... 28 ~= id else {
+        guard PathGraph.nodeRange ~= id else {
             fatalError("NodeGroup with id '\(id)' doesn't exist.")
         }
         let nodeGroup = nodeGroups[id - 1]
@@ -190,6 +192,11 @@ class PathGraph {
         }
         
         return nodeGroup
+    }
+    
+    /// Scale a point to fit the game scene.
+    func scaledPoint(_ point: CGPoint) -> CGPoint {
+        point.scale(toFit: Settings.scene!.size)
     }
 }
 
