@@ -12,7 +12,7 @@ import SpriteKit
 class GameScene: SKScene {
     
     private(set) var money: Int = 0
-    private(set) var graph: PathGraph!
+    var graph: PathGraph!
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
     }
@@ -20,17 +20,9 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        Settings.reset()
-        Settings.scene = self
-        graph = PathGraph()
         setupAll()
         
         let person = Person(in: graph)
-        addChild(person.node)
-        
-        if Settings.debugMode {
-            displayGraph()
-        }
         
         #warning("Temporary moving default person to show it works.")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in

@@ -33,7 +33,7 @@ class PathGraph {
     private(set) var nodeGroups: [NodeGroup] = [
         NodeGroup(
             id: 1,
-            point: CGPoint(x: 720, y: 50),
+            point: CGPoint(x: 720, y: 30),
             group: [10]
         ),
         NodeGroup(
@@ -93,82 +93,82 @@ class PathGraph {
         ),
         NodeGroup(
             id: 13,
-            point: CGPoint(x: 100, y: 750),
+            point: CGPoint(x: 100, y: 700),
             group: [2, 8, 14, 23]
         ),
         NodeGroup(
             id: 14,
-            point: CGPoint(x: 200, y: 750),
+            point: CGPoint(x: 200, y: 710),
             group: [8, 13, 23]
         ),
         NodeGroup(
             id: 15,
-            point: CGPoint(x: 350, y: 750),
+            point: CGPoint(x: 350, y: 710),
             group: [8, 16, 24]
         ),
         NodeGroup(
             id: 16,
-            point: CGPoint(x: 497.5, y: 750),
+            point: CGPoint(x: 497.5, y: 700),
             group: [8, 9, 10, 15, 17, 24, 25]
         ),
         NodeGroup(
             id: 17,
-            point: CGPoint(x: 645, y: 750),
+            point: CGPoint(x: 645, y: 710),
             group: [10, 16, 25]
         ),
         NodeGroup(
             id: 18,
-            point: CGPoint(x: 795, y: 750),
+            point: CGPoint(x: 795, y: 710),
             group: [10, 19, 26]
         ),
         NodeGroup(
             id: 19,
-            point: CGPoint(x: 942.5, y: 750),
+            point: CGPoint(x: 942.5, y: 700),
             group: [10, 11, 12, 18, 20, 26, 27]
         ),
         NodeGroup(
             id: 20,
-            point: CGPoint(x: 1090, y: 750),
+            point: CGPoint(x: 1090, y: 710),
             group: [12, 19, 27]
         ),
         NodeGroup(
             id: 21,
-            point: CGPoint(x: 1240, y: 750),
+            point: CGPoint(x: 1240, y: 710),
             group: [12, 22, 28]
         ),
         NodeGroup(
             id: 22,
-            point: CGPoint(x: 1340, y: 750),
+            point: CGPoint(x: 1340, y: 700),
             group: [7, 12, 21, 28]
         ),
         NodeGroup(
             id: 23,
-            point: CGPoint(x: 200, y: 850),
+            point: CGPoint(x: 200, y: 810),
             group: [13, 14]
         ),
         NodeGroup(
             id: 24,
-            point: CGPoint(x: 350, y: 850),
+            point: CGPoint(x: 350, y: 810),
             group: [15, 16, 25]
         ),
         NodeGroup(
             id: 25,
-            point: CGPoint(x: 645, y: 850),
+            point: CGPoint(x: 645, y: 810),
             group: [16, 17, 24]
         ),
         NodeGroup(
             id: 26,
-            point: CGPoint(x: 795, y: 850),
+            point: CGPoint(x: 795, y: 810),
             group: [18, 19, 27]
         ),
         NodeGroup(
             id: 27,
-            point: CGPoint(x: 1090, y: 850),
+            point: CGPoint(x: 1090, y: 810),
             group: [19, 20, 26]
         ),
         NodeGroup(
             id: 28,
-            point: CGPoint(x: 1240, y: 850),
+            point: CGPoint(x: 1240, y: 810),
             group: [21, 22]
         )
     ]

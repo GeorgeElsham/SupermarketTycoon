@@ -16,7 +16,7 @@ class Person {
         "Jessica", "Ashley", "Emily", "Sarah", "Amanda", "Elizabeth", "Taylor", "Megan", "Hannah", "Lauren"
     ]
     
-    let node: SKSpriteNode
+    let node: SKNode
     var graphPosition: Int
     let name: String
     let shoppingList: [ShoppingItem]
@@ -29,10 +29,16 @@ class Person {
         let itemIterator = Array(1 ... Int.random(in: 1 ... 5))
         shoppingList = itemIterator.map { _ in ShoppingItem() }
         
-        // Create person node
-        node = SKSpriteNode(imageNamed: "person_customer")
+        // Create person node wrapper so person can be offset
+        node = SKNode()
         node.position = graph.getNodeGroup(with: graphPosition).point
         node.zPosition = 2
+        
+        // Create person node
+        let personNode = SKSpriteNode(imageNamed: "person_customer")
+        personNode.position.y = 45
+        node.addChild(personNode)
+        Settings.scene?.addChild(node)
     }
     
     /// Animate moving to a location by following a path.

@@ -11,6 +11,14 @@ import SpriteKit
 extension GameScene {
     
     func setupAll() {
+        Settings.reset()
+        Settings.scene = self
+        graph = PathGraph()
+        
+        if Settings.debugMode {
+            displayGraph()
+        }
+        
         setupBackground()
         setupMoney()
     }
