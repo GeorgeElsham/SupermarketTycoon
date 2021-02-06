@@ -12,12 +12,19 @@ import Foundation
 /// Stores the information about the game, such as if it is paused or the money available.
 class GameInfo {
     
-    private(set) var isPaused: Bool
+    /// Whether the game is paused.
+    private(set) var isPaused: Bool {
+        didSet {
+            Global.scene?.isPaused = isPaused
+        }
+    }
+    /// Money player has available.
     private(set) var money: Int {
         didSet {
             Global.scene?.balanceLabel.text = formattedMoney
         }
     }
+    /// Existing checkouts in the store.
     private(set) var checkouts: [Checkout]
     
     init() {
