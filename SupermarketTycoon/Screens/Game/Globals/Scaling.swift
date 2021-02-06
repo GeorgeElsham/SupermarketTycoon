@@ -12,7 +12,7 @@ import Foundation
 enum Scaling {
     static var ratio: CGFloat = {
         let originalSize = CGSize(width: 1440, height: 900)
-        return Global.scene!.size.width / originalSize.width
+        return GameView.scene.size.width / originalSize.width
     }()
     
     static func point(_ point: CGPoint) -> CGPoint {

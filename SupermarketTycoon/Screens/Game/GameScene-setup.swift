@@ -11,9 +11,7 @@ import SpriteKit
 extension GameScene {
     
     func setupAll() {
-        // Set globals
-        Global.reset()
-        Global.scene = self
+        // Initialize graph
         graph = PathGraph()
         
         // Show debug paths if in debug mode

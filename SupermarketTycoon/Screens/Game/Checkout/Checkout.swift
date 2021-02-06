@@ -34,6 +34,6 @@ class Checkout {
         let checkoutNode = SKSpriteNode(texture: texture, size: size)
         checkoutNode.position = Scaling.point(CGPoint(x: positions.x, y: 415))
         checkoutNode.zPosition = ZPosition.checkout.rawValue
-        Global.scene?.addChild(checkoutNode)
+        GameView.scene.addChild(checkoutNode)
     }
 }

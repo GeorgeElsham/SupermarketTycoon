@@ -15,13 +15,13 @@ class GameInfo {
     /// Whether the game is paused.
     private(set) var isPaused: Bool {
         didSet {
-            Global.scene?.isPaused = isPaused
+            GameView.scene.isPaused = isPaused
         }
     }
     /// Money player has available.
     private(set) var money: Int {
         didSet {
-            Global.scene?.balanceLabel.text = formattedMoney
+            GameView.scene.balanceLabel.text = formattedMoney
         }
     }
     /// Existing checkouts in the store.
