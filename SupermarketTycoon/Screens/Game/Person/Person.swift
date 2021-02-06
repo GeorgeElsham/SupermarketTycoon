@@ -38,7 +38,7 @@ class Person {
         let personNode = SKSpriteNode(imageNamed: "person_customer")
         personNode.position.y = 45
         node.addChild(personNode)
-        Settings.scene?.addChild(node)
+        Global.scene?.addChild(node)
     }
     
     /// Animate moving to a location by following a path.

@@ -196,7 +196,7 @@ class PathGraph {
     
     /// Scale a point to fit the game scene.
     func scaledPoint(_ point: CGPoint) -> CGPoint {
-        point.scale(toFit: Settings.scene!.size)
+        point.scale(toFit: Global.scene!.size)
     }
 }
 

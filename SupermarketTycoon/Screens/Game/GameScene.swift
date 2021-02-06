@@ -31,15 +31,10 @@ class GameScene: SKScene {
                 print("Completion")
             }
         }
-    }
-}
-
-
-enum Settings {
-    static let debugMode: Bool = true
-    static var scene: GameScene?
-    
-    static func reset() {
-        scene = nil
+        
+        #warning("Temporary checkout.")
+        let checkout = SKSpriteNode(imageNamed: "checkout")
+        checkout.position = center
+        addChild(checkout)
     }
 }

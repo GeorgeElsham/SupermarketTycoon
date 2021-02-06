@@ -23,6 +23,7 @@
 		F350843A25C037AA001324A0 /* GraphGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350843925C037AA001324A0 /* GraphGeneration.swift */; };
 		F355262525B99561002B10C6 /* PathGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355262425B99561002B10C6 /* PathGraph.swift */; };
 		F36C4BFD25B1B6DB0021EBD2 /* GameScene-setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */; };
+		F3A9957C25CEE05F002ED034 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9957B25CEE05F002ED034 /* Global.swift */; };
 		F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */; };
 		F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAA6F125791D3C00089750 /* ContentView.swift */; };
 		F3CAA6F425791D3D00089750 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3CAA6F325791D3D00089750 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		F350843925C037AA001324A0 /* GraphGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphGeneration.swift; sourceTree = "<group>"; };
 		F355262425B99561002B10C6 /* PathGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathGraph.swift; sourceTree = "<group>"; };
 		F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene-setup.swift"; sourceTree = "<group>"; };
+		F3A9957B25CEE05F002ED034 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		F3CAA6EC25791D3C00089750 /* Supermarket Tycoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Supermarket Tycoon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CAA6EF25791D3C00089750 /* SupermarketTycoonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketTycoonApp.swift; sourceTree = "<group>"; };
 		F3CAA6F125791D3C00089750 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				F3CAC6E52580FE1B00EBF08E /* GameView.swift */,
 				F3CAC6E92581011100EBF08E /* GameScene.swift */,
 				F36C4BFC25B1B6DB0021EBD2 /* GameScene-setup.swift */,
+				F3A9957B25CEE05F002ED034 /* Global.swift */,
 				F350843425C036C3001324A0 /* Person */,
 				F355262325B99550002B10C6 /* Pathfinding */,
 			);
@@ -310,6 +313,7 @@
 				F350843025C0230A001324A0 /* Person.swift in Sources */,
 				F3468C5D25CD9B8500905E52 /* Ext-CGSize.swift in Sources */,
 				F36C4BFD25B1B6DB0021EBD2 /* GameScene-setup.swift in Sources */,
+				F3A9957C25CEE05F002ED034 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
