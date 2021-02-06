@@ -11,7 +11,8 @@ import SpriteKit
 /// `SpriteKit` game scene.
 class GameScene: SKScene {
     
-    private(set) var money: Int = 0
+    let gameInfo = GameInfo()
+    var balanceLabel: SKLabelNode!
     var graph: PathGraph!
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
@@ -31,10 +32,5 @@ class GameScene: SKScene {
                 print("Completion")
             }
         }
-        
-        #warning("Temporary checkout.")
-        let checkout = SKSpriteNode(imageNamed: "checkout")
-        checkout.position = center
-        addChild(checkout)
     }
 }

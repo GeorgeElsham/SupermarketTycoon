@@ -25,7 +25,7 @@ extension GameScene {
                 
                 let line = SKShapeNode(path: path)
                 line.strokeColor = .red
-                line.zPosition = 1
+                line.zPosition = ZPosition.debugLine.rawValue
                 addChild(line)
             }
             
@@ -35,7 +35,7 @@ extension GameScene {
             pointLabel.verticalAlignmentMode = .center
             point.addChild(pointLabel)
             point.position = nodeGroup.point
-            point.zPosition = 1.1
+            point.zPosition = ZPosition.debugNode.rawValue
             addChild(point)
         }
     }

@@ -175,7 +175,7 @@ class PathGraph {
     
     init() {
         nodeGroups = nodeGroups.map {
-            NodeGroup(id: $0.id, point: scaledPoint($0.point), group: $0.group)
+            NodeGroup(id: $0.id, point: Scaling.point($0.point), group: $0.group)
         }
     }
     
@@ -192,24 +192,5 @@ class PathGraph {
         }
         
         return nodeGroup
-    }
-    
-    /// Scale a point to fit the game scene.
-    func scaledPoint(_ point: CGPoint) -> CGPoint {
-        point.scale(toFit: Global.scene!.size)
-    }
-}
-
-
-private extension CGPoint {
-    
-    /// Scales coordinates of the standard scene size to fit the whole scene size.
-    /// - Parameter size: Size of scene.
-    /// - Returns: New scaled point.
-    func scale(toFit size: CGSize) -> CGPoint {
-        let originalSize = CGSize(width: 1440, height: 900)
-        let ratio = size.width / originalSize.width
-        let newSize = CGPoint(x: x * ratio, y: y * ratio)
-        return newSize
     }
 }
