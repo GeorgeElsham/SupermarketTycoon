@@ -12,11 +12,9 @@ import SwiftUI
 struct InstructionsView: View {
     
     var body: some View {
-        AppView {
-            Image("Instructions")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-        }
+        Image("Instructions")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 }
 

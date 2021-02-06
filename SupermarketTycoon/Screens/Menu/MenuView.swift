@@ -14,36 +14,34 @@ struct MenuView: View {
     @EnvironmentObject private var state: AppState
     
     var body: some View {
-        AppView {
-            ZStack {
-                Image("Menu")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                
-                VStack {
-                    HStack {
-                        VStack(spacing: 50) {
-                            LargeButton("Play") {
-                                state.change(to: .game)
-                            }
-                            
-                            LargeButton("Instructions") {
-                                state.change(to: .instructions)
-                            }
-                            
-                            LargeButton("Leader board") {
-                                state.change(to: .leaderBoard)
-                            }
+        ZStack {
+            Image("Menu")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            
+            VStack {
+                HStack {
+                    VStack(spacing: 50) {
+                        LargeButton("Play") {
+                            state.change(to: .game)
                         }
-                        .frame(maxWidth: .infinity)
                         
-                        Spacer()
-                            .frame(maxWidth: .infinity)
+                        LargeButton("Instructions") {
+                            state.change(to: .instructions)
+                        }
+                        
+                        LargeButton("Leader board") {
+                            state.change(to: .leaderBoard)
+                        }
                     }
+                    .frame(maxWidth: .infinity)
                     
                     Spacer()
-                        .frame(height: 190)
+                        .frame(maxWidth: .infinity)
                 }
+                
+                Spacer()
+                    .frame(height: 190)
             }
         }
     }

@@ -17,21 +17,27 @@ struct ContentView: View {
         switch state.screen {
         case .menu:
             MenuView()
+                .addMenuButton()
+                .baseBackground()
                 .environmentObject(state)
             
         case .game:
             GameView()
+                .addMenuButton()
                 .environmentObject(state)
             
         case .instructions:
             InstructionsView()
+                .addMenuButton()
+                .baseBackground()
                 .environmentObject(state)
             
-        default:
-            AppView {
-                Text("Unavailable")
-            }
-            .environmentObject(state)
+        case .leaderBoard:
+            Text("Leader board")
+                .foregroundColor(.black)
+                .addMenuButton()
+                .baseBackground()
+                .environmentObject(state)
         }
     }
 }
