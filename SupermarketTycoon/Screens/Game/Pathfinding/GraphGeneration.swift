@@ -11,7 +11,7 @@ import GameKit
 // MARK: - C: GraphGeneration
 class GraphGeneration {
     
-    private static let pathCurveSize: CGFloat = 40
+    private static let pathCurveSize: CGFloat = 80
     unowned private var graph: PathGraph
     
     init(graph: PathGraph) {
