@@ -8,6 +8,7 @@
 import SpriteKit
 
 
+// MARK: - C: Person
 /// Customers walking around the store with a shopping list.
 class Person {
     
@@ -22,14 +23,23 @@ class Person {
     let shoppingList: [ShoppingItem]
     private(set) var graphPosition: Int
     private let node: SKNode
+    private unowned var graph: PathGraph
     
     init(in graph: PathGraph) {
+        self.graph = graph
         name = Person.allNames.randomElement()!
         graphPosition = 1
         
         // Generate shopping list
-        let itemIterator = Array(1 ... Int.random(in: 1 ... 5))
-        shoppingList = itemIterator.map { _ in ShoppingItem() }
+        let numberOfItemsInList = Int.random(in: 1 ... 5)
+        var tempShoppingList = [ShoppingItem]()
+        
+        while tempShoppingList.count < numberOfItemsInList {
+            let item = ShoppingItem()
+            guard !tempShoppingList.contains(where: { $0.item == item.item }) else { continue }
+            tempShoppingList.append(item)
+        }
+        shoppingList = tempShoppingList
         
         // Create person node wrapper so person can be offset
         node = SKNode()
@@ -52,6 +62,49 @@ class Person {
             guard let self = self else { return }
             self.graphPosition = destination.id
             completion()
+        }
+    }
+}
+
+
+// MARK: Ext: Start shopping
+extension Person {
+    func startShopping() {
+        shopForItem { [weak self] in
+            guard let self = self else { return }
+            
+            // Shopped for every item
+            self.node.removeFromParent()
+            
+            #warning("Make person go to checkouts.")
+        }
+    }
+    
+    private func shopForItem(completion: @escaping () -> Void) {
+        // Get first item which has not been obtained
+        guard let item = shoppingList.first(where: { !$0.isObtained }) else {
+            // All the items have been obtained, done
+            completion()
+            return
+        }
+        
+        // Get destination to get to this item
+        guard let destination = item.item.nodes.randomElement() else {
+            fatalError("The item has no destinations. Item: '\(item.item)'.")
+        }
+        
+        // Path find to this destination
+        graph.generation.pathFind(person: self, to: Node(id: destination)) {
+            // Get this item
+            for i in 1 ... item.quantityRequired {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
+                    item.getItem()
+                    
+                    // Go to next item if getting last item
+                    guard i == item.quantityRequired else { return }
+                    self.shopForItem(completion: completion)
+                }
+            }
         }
     }
 }

@@ -8,10 +8,14 @@
 import SpriteKit
 
 
-struct ShoppingItem {
+class ShoppingItem {
     let item: FoodItem
     let quantityRequired: Int
     private(set) var quantityObtained: Int
+    
+    var isObtained: Bool {
+        quantityObtained == quantityRequired
+    }
     
     var color: SKColor {
         if quantityObtained == 0 {
@@ -29,7 +33,7 @@ struct ShoppingItem {
         quantityObtained = 0
     }
     
-    mutating func getItem() {
+    func getItem() {
         guard quantityObtained < quantityRequired else {
             fatalError("Added more items than required. \(quantityObtained)/\(quantityRequired).")
         }

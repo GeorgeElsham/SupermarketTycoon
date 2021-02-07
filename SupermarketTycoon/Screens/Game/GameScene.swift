@@ -14,6 +14,8 @@ class GameScene: SKScene {
     let gameInfo = GameInfo()
     var balanceLabel: SKLabelNode!
     var graph: PathGraph!
+    var customers: [Person] = []
+    
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
     }
@@ -21,16 +23,27 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
+        // Setup game
         setupAll()
         
-        let person = Person(in: graph)
-        
-        #warning("Temporary moving default person to show it works.")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+        // Start game
+        spawnCustomers()
+    }
+    
+    /// Spawn customers forever.
+    func spawnCustomers() {
+        let customerSpawner = SKAction.run { [weak self] in
             guard let self = self else { return }
-            self.graph.generation.pathFind(person: person, to: Node(id: 15)) {
-                print("Completion")
-            }
+            self.generateCustomer()
         }
+        let pause = SKAction.wait(forDuration: 5, withRange: 3)
+        let spawnPeriodically = SKAction.sequence([customerSpawner, pause])
+        run(.repeatForever(spawnPeriodically))
+    }
+    
+    /// Spawn customer at the door and make it start shopping.
+    func generateCustomer() {
+        let person = Person(in: graph)
+        person.startShopping()
     }
 }
