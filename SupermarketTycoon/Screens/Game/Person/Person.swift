@@ -13,6 +13,7 @@ import SpriteKit
 class Person {
     
     static let walkingSpeed: CGFloat = 70
+    static let pickItemTime: Double = 1
     static let allNames: [String] = [
         // From top names list
         "Michael", "Christopher", "Matthew", "Joshua", "Jacob", "Nicholas", "Andrew", "Daniel", "Tyler", "Joseph",
@@ -119,7 +120,7 @@ extension Person {
         graph.generation.pathFind(person: self, to: Node(id: destination)) {
             // Get this item
             for i in 1 ... item.quantityRequired {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Person.pickItemTime) {
                     item.getItem()
                     self.pickedUpItemAnimation()
                     
