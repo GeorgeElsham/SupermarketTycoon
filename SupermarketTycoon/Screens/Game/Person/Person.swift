@@ -64,6 +64,28 @@ class Person {
             completion()
         }
     }
+    
+    /// Show animation of customer picking up item off the shelf.
+    func pickedUpItemAnimation() {
+        // Label node
+        let plus1 = SKLabelNode(fontNamed: "OpenSans-Semibold")
+        plus1.text = "+1"
+        plus1.fontColor = .green
+        plus1.fontSize = 25
+        plus1.position = CGPoint(x: 45, y: 60)
+        node.addChild(plus1)
+        
+        // Run animation action
+        let rise = SKAction.moveBy(x: 0, y: 30, duration: 0.3)
+        let fadeIn = SKAction.fadeIn(withDuration: 0.1)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.1)
+        let fade = SKAction.sequence([fadeIn, .wait(forDuration: 0.1), fadeOut])
+        let obtainAnim = SKAction.group([rise, fade])
+        
+        plus1.run(obtainAnim) {
+            plus1.removeFromParent()
+        }
+    }
 }
 
 
@@ -99,6 +121,7 @@ extension Person {
             for i in 1 ... item.quantityRequired {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
                     item.getItem()
+                    self.pickedUpItemAnimation()
                     
                     // Go to next item if getting last item
                     guard i == item.quantityRequired else { return }
