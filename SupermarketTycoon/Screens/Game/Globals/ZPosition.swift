@@ -14,5 +14,5 @@ enum ZPosition: CGFloat {
     case checkout = 1.5
     case debugLine = 2.4
     case debugNode = 2.5
-    case person = 5
+    case customer = 5
 }

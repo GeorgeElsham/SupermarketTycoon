@@ -19,19 +19,19 @@ class GraphGeneration {
     }
     
     // MARK: Regular pathfinding
-    /// Path-find from the current position of the `person` passed in, to a `destination` node.
+    /// Path-find from the current position of the `customer` passed in, to a `destination` node.
     ///
     /// This algorithm is based on Dijkstra's algorithm. Link: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     ///
     /// - Parameters:
-    ///   - person: Person to move.
-    ///   - destination: Destination to move the person to.
+    ///   - customer: Customer to move.
+    ///   - destination: Destination to move the customer to.
     ///   - completion: Completion handler to run after moving to the destination.
-    func pathFind(person: Person, to destination: Int, completion: @escaping () -> Void = {}) {
+    func pathFind(customer: Customer, to destination: Int, completion: @escaping () -> Void = {}) {
         // Mark all nodes unvisited and set the initial node
         let allNodes: [NodeInfo] = PathGraph.nodeRange.map(NodeInfo.init)
         var unvisitedNodes: Set<NodeInfo> = Set(allNodes)
-        var current: NodeInfo = unvisitedNodes[id: person.graphPosition]!
+        var current: NodeInfo = unvisitedNodes[id: customer.graphPosition]!
         
         // Set initial node distance and values
         current.distance = 0
@@ -99,24 +99,24 @@ class GraphGeneration {
             }
         }
         
-        // Move person
-        generatePointsAndMove(person: person, to: destination, allNodes: allNodes, completion: completion)
+        // Move customer
+        generatePointsAndMove(customer: customer, to: destination, allNodes: allNodes, completion: completion)
     }
     
     // MARK: Checkout pathfinding
-    /// Same pathfinding as `pathFind(person:to:completion:)`. However, this version looks for
+    /// Same pathfinding as `pathFind(customer:to:completion:)`. However, this version looks for
     /// every available checkout, meaning that this pathfinding looks for multiple destinations. It can then
     /// determine the closest checkout to the current position.
     ///
     /// - Parameters:
-    ///   - person: Person to move.
-    ///   - available: Destination to move the person to.
+    ///   - customer: Customer to move.
+    ///   - available: Destination to move the customer to.
     ///   - completion: Completion handler to run after moving to the destination. Parameter is checkout index.
-    func pathFindToNearestCheckout(person: Person, available: Int, completion: @escaping (Int) -> Void) {
+    func pathFindToNearestCheckout(customer: Customer, available: Int, completion: @escaping (Int) -> Void) {
         // Mark all nodes unvisited and set the initial node
         let allNodes: [NodeInfo] = PathGraph.nodeRange.map(NodeInfo.init)
         var unvisitedNodes: Set<NodeInfo> = Set(allNodes)
-        var current: NodeInfo = unvisitedNodes[id: person.graphPosition]!
+        var current: NodeInfo = unvisitedNodes[id: customer.graphPosition]!
         
         // Set initial node distance and values
         current.distance = 0
@@ -211,8 +211,8 @@ class GraphGeneration {
             }
         }
         
-        // Move person
-        generatePointsAndMove(person: person, to: closest.node, allNodes: allNodes) {
+        // Move customer
+        generatePointsAndMove(customer: customer, to: closest.node, allNodes: allNodes) {
             completion(Checkout.indexOfCheckout(at: closest.node))
         }
     }
@@ -223,11 +223,11 @@ class GraphGeneration {
 extension GraphGeneration {
     /// Generates the path by backtracking through the closest routes.
     /// - Parameters:
-    ///   - person: Person to move.
-    ///   - destination: Destination to move the person to.
+    ///   - customer: Customer to move.
+    ///   - destination: Destination to move the customer to.
     ///   - allNodes: Information about all the nodes in the graph, such as if it has been visited.
     ///   - completion: Completion handler to run after moving to the destination.
-    private func generatePointsAndMove(person: Person, to destination: Int, allNodes: [NodeInfo], completion: @escaping () -> Void) {
+    private func generatePointsAndMove(customer: Customer, to destination: Int, allNodes: [NodeInfo], completion: @escaping () -> Void) {
         // Generate path
         var current = allNodes[id: destination]!
         var fullPath: [NodeInfo] = [current]
@@ -241,8 +241,8 @@ extension GraphGeneration {
         let pathPoints = fullPath.map { graph.getNodeGroup(with: $0.id).point }
         let smoothPath = generatePath(from: pathPoints)
         
-        // Make person walk along path
-        person.move(along: smoothPath, to: destination) {
+        // Make customer walk along path
+        customer.move(along: smoothPath, to: destination) {
             completion()
         }
     }

@@ -34,7 +34,7 @@ class Checkout {
     
     let number: Int
     let node: Int
-    private(set) var queue: [Person] = []
+    private(set) var queue: [Customer] = []
     
     init(number: Int) {
         self.number = number
@@ -62,25 +62,25 @@ class Checkout {
         return index
     }
     
-    /// Adds person to back of queue.
-    /// - Parameter person: Customer object to keep as a reference in the queue.
-    func addPersonToQueue(_ person: Person) {
-        queue.append(person)
+    /// Adds customer to back of queue.
+    /// - Parameter customer: Customer object to keep as a reference in the queue.
+    func addCustomerToQueue(_ customer: Customer) {
+        queue.append(customer)
     }
     
     /// First customer in queue processes purchase, then leaves the store.
     func processFirstInQueue() {
-        // Get first person
-        guard let firstPerson = queue.first else {
+        // Get first customer
+        guard let firstCustomer = queue.first else {
             fatalError("Queue is empty when trying to process first in queue.")
         }
-        let totalDuration = Double(firstPerson.shoppingList.count) * Checkout.purchaseItemTime
+        let totalDuration = Double(firstCustomer.shoppingList.count) * Checkout.purchaseItemTime
         
         // Purchase all items
         DispatchQueue.main.asyncAfter(deadline: .now() + totalDuration) { [weak self] in
             guard let self = self else { return }
             self.queue.removeFirst()
-            firstPerson.leaveStore()
+            firstCustomer.leaveStore()
         }
     }
 }

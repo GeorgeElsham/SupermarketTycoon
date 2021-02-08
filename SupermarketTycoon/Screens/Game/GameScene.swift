@@ -42,7 +42,7 @@ class GameScene: SKScene {
     
     /// Spawn customer at the door and make it start shopping.
     func generateCustomer() {
-        let person = Person(in: graph)
-        person.startShopping(gameInfo: gameInfo)
+        let customer = Customer(in: graph)
+        customer.startShopping(gameInfo: gameInfo)
     }
 }

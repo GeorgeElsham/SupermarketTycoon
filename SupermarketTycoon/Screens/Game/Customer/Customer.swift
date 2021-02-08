@@ -1,5 +1,5 @@
 //
-//  Person.swift
+//  Customer.swift
 //  Supermarket Tycoon
 //
 //  Created by George Elsham on 26/01/2021.
@@ -8,11 +8,11 @@
 import SpriteKit
 
 
-// MARK: - C: Person
+// MARK: - C: Customer
 /// Customers walking around the store with a shopping list.
-class Person {
+class Customer {
     
-    static let walkingSpeed: CGFloat = 70
+    static let walkingSpeed: CGFloat = 100
     static let pickItemTime: Double = 1
     static let allNames: [String] = [
         // From top names list
@@ -28,7 +28,7 @@ class Person {
     
     init(in graph: PathGraph) {
         self.graph = graph
-        name = Person.allNames.randomElement()!
+        name = Customer.allNames.randomElement()!
         graphPosition = 1
         
         // Generate shopping list
@@ -42,22 +42,22 @@ class Person {
         }
         shoppingList = tempShoppingList
         
-        // Create person node wrapper so person can be offset
+        // Create customer node wrapper so customer can be offset
         node = SKNode()
         node.position = graph.getNodeGroup(with: graphPosition).point
-        node.zPosition = ZPosition.person.rawValue
+        node.zPosition = ZPosition.customer.rawValue
         
-        // Create person node
-        let personNode = SKSpriteNode(imageNamed: "person_customer")
-        personNode.position.y = 45
-        node.addChild(personNode)
+        // Create customer node
+        let customerNode = SKSpriteNode(imageNamed: "person_customer")
+        customerNode.position.y = 45
+        node.addChild(customerNode)
         GameView.scene.addChild(node)
     }
     
     /// Animate moving to a location by following a path.
     func move(along path: CGPath, to destination: Int, completion: @escaping () -> Void) {
         // Actions
-        let walk = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Person.walkingSpeed)
+        let walk = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
         
         node.run(walk) { [weak self] in
             guard let self = self else { return }
@@ -75,7 +75,7 @@ class Person {
         path.addLine(to: doors)
         
         // Move
-        let leave = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Person.walkingSpeed)
+        let leave = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
         node.run(leave) {
             // Fade out and disappear
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
@@ -89,7 +89,7 @@ class Person {
 
 
 // MARK: Ext: Shopping
-extension Person {
+extension Customer {
     /// Customer will shop for every item on their shopping list. After, they go to the checkouts, then leave.
     func startShopping(gameInfo: GameInfo) {
         shopForItem { [weak self] in
@@ -104,17 +104,17 @@ extension Person {
                 // OR
                 // Smallest queue, go to this checkout
                 let checkout = orderedCheckouts.first!
-                self.graph.generation.pathFind(person: self, to: checkout.node) {
+                self.graph.generation.pathFind(customer: self, to: checkout.node) {
                     #warning("Temporarily no queue")
-                    checkout.addPersonToQueue(self)
+                    checkout.addCustomerToQueue(self)
                     checkout.processFirstInQueue()
                 }
             } else {
                 // Multiple checkouts with same queue length, pick nearest small queue
-                self.graph.generation.pathFindToNearestCheckout(person: self, available: orderedCheckouts.count) { checkoutIndex in
+                self.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count) { checkoutIndex in
                     #warning("Temporarily no queue")
                     let checkout = gameInfo.checkouts[checkoutIndex]
-                    checkout.addPersonToQueue(self)
+                    checkout.addCustomerToQueue(self)
                     checkout.processFirstInQueue()
                 }
             }
@@ -138,10 +138,10 @@ extension Person {
         }
         
         // Path find to this destination
-        graph.generation.pathFind(person: self, to: destination) {
+        graph.generation.pathFind(customer: self, to: destination) {
             // Get this item
             for i in 1 ... item.quantityRequired {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Person.pickItemTime) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Customer.pickItemTime) {
                     item.getItem()
                     self.pickedUpItemAnimation()
                     
