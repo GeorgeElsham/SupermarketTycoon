@@ -9,16 +9,17 @@ import SpriteKit
 import SwiftUI
 
 
+// MARK: - S: GameView
 /// Main game screen.
 struct GameView: View {
     
     static var scene: GameScene!
+    @ObservedObject private var outsideData = OutsideData()
     @State private var categorySelection: Upgrade = .advertising
-    @State private var customerSelection: Customer?
     
     init() {
         // Remake scene
-        let gameScene = GameScene(size: CGSize(width: 1440, height: 900), customerSelection: $customerSelection)
+        let gameScene = GameScene(size: CGSize(width: 1440, height: 900), outsideData: outsideData)
         gameScene.scaleMode = .aspectFit
         GameView.scene = gameScene
     }
@@ -64,8 +65,8 @@ struct GameView: View {
                         .padding(.bottom, 12)
                     
                     BackgroundBox {
-                        Text("Test")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Text("Test: \(outsideData.customerSelection?.name ?? "-")")
+                            .foregroundColor(.black)
                     }
                 }
                 .frame(maxHeight: .infinity)
@@ -97,4 +98,11 @@ struct GameView: View {
     private func barHeight(for size: CGSize) -> CGFloat {
         size.height / 2 - size.width / 3.2 + 1
     }
+}
+
+
+
+// MARK: - C: OutsideData
+class OutsideData: ObservableObject {
+    @Published var customerSelection: Customer?
 }

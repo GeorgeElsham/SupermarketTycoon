@@ -24,10 +24,12 @@ class Customer {
     let shoppingList: [ShoppingItem]
     private(set) var graphPosition: Int
     private let node: SKNode
-    private unowned var graph: PathGraph
+    private unowned let graph: PathGraph
+    private unowned let gameInfo: GameInfo
     
-    init(in graph: PathGraph) {
+    init(in graph: PathGraph, gameInfo: GameInfo) {
         self.graph = graph
+        self.gameInfo = gameInfo
         name = Customer.allNames.randomElement()!
         graphPosition = 1
         
@@ -49,6 +51,8 @@ class Customer {
         
         // Create customer node
         let customerNode = SKSpriteNode(imageNamed: "person_customer")
+        customerNode.name = "Customer"
+        gameInfo.customers.append(CustomerNodeGroup(node: customerNode, customer: self))
         customerNode.position.y = 45
         node.addChild(customerNode)
         GameView.scene.addChild(node)
@@ -81,7 +85,17 @@ class Customer {
         follow(path: path) {
             // Fade out and disappear
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-            self.node.run(fadeOut, completion: self.node.removeFromParent)
+            self.node.run(fadeOut) {
+                // Remove node from scene
+                self.node.removeFromParent()
+                
+                // Remove from customers list so Person can be deallocated
+                if self.gameInfo.outsideData.customerSelection?.node == self.node {
+                    self.gameInfo.outsideData.customerSelection = nil
+                }
+                guard let index = self.gameInfo.customers.firstIndex(where: { $0.customer?.node == self.node }) else { return }
+                self.gameInfo.customers.remove(at: index)
+            }
         }
     }
     
@@ -190,5 +204,18 @@ extension Customer {
         let fade = SKAction.sequence([fadeIn, .wait(forDuration: 0.1), fadeOut])
         let obtainAnim = SKAction.group([rise, fade])
         plus1.run(obtainAnim, completion: plus1.removeFromParent)
+    }
+}
+
+
+
+// MARK: - S: CustomerNodeGroup
+struct CustomerNodeGroup {
+    weak var node: SKSpriteNode?
+    weak var customer: Customer?
+    
+    init(node: SKSpriteNode, customer: Customer) {
+        self.node = node
+        self.customer = customer
     }
 }

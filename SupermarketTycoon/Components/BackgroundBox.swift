@@ -19,6 +19,11 @@ struct BackgroundBox<Content: View>: View {
     
     var body: some View {
         content()
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 15)

@@ -5,6 +5,7 @@
 //  Created by George Elsham on 06/02/2021.
 //
 
+import SpriteKit
 import SwiftUI
 
 
@@ -12,7 +13,8 @@ import SwiftUI
 /// Stores the information about the game, such as if it is paused or the money available.
 class GameInfo {
     
-    @Binding private var customerSelection: Customer?
+    var customers = [CustomerNodeGroup]()
+    let outsideData: OutsideData
     
     /// Whether the game is paused.
     private(set) var isPaused: Bool {
@@ -29,8 +31,8 @@ class GameInfo {
     /// Existing checkouts in the store.
     private(set) var checkouts: [Checkout]
     
-    init(customerSelection: Binding<Customer?>) {
-        _customerSelection = customerSelection
+    init(outsideData: OutsideData) {
+        self.outsideData = outsideData
         isPaused = false
         money = 0
         checkouts = []

@@ -13,6 +13,7 @@ import SwiftUI
 class GameScene: SKScene {
     
     let gameInfo: GameInfo
+    let outsideData: OutsideData
     var balanceLabel: SKLabelNode!
     var graph: PathGraph!
     
@@ -20,8 +21,9 @@ class GameScene: SKScene {
         CGPoint(x: frame.midX, y: frame.midY)
     }
     
-    init(size: CGSize, customerSelection: Binding<Customer?>) {
-        gameInfo = GameInfo(customerSelection: customerSelection)
+    init(size: CGSize, outsideData: OutsideData) {
+        self.outsideData = outsideData
+        gameInfo = GameInfo(outsideData: outsideData)
         super.init(size: size)
     }
     
@@ -40,6 +42,16 @@ class GameScene: SKScene {
         spawnCustomers()
     }
     
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        
+        // Get customer clicked on and select it
+        let location = event.location(in: self)
+        let customerNodes = nodes(at: location).filter { $0.name == "Customer" }
+        let customerObject = gameInfo.customers.first(where: { $0.node == customerNodes.first })?.customer
+        outsideData.customerSelection = customerObject
+    }
+    
     /// Spawn customers forever.
     func spawnCustomers() {
         let customerSpawner = SKAction.run { [weak self] in
@@ -53,7 +65,7 @@ class GameScene: SKScene {
     
     /// Spawn customer at the door and make it start shopping.
     func generateCustomer() {
-        let customer = Customer(in: graph)
+        let customer = Customer(in: graph, gameInfo: gameInfo)
         customer.startShopping(gameInfo: gameInfo)
     }
 }
