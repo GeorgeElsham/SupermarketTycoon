@@ -5,12 +5,14 @@
 //  Created by George Elsham on 06/02/2021.
 //
 
-import Foundation
+import SwiftUI
 
 
 // MARK: - C: GameInfo
 /// Stores the information about the game, such as if it is paused or the money available.
 class GameInfo {
+    
+    @Binding private var customerSelection: Customer?
     
     /// Whether the game is paused.
     private(set) var isPaused: Bool {
@@ -27,7 +29,8 @@ class GameInfo {
     /// Existing checkouts in the store.
     private(set) var checkouts: [Checkout]
     
-    init() {
+    init(customerSelection: Binding<Customer?>) {
+        _customerSelection = customerSelection
         isPaused = false
         money = 0
         checkouts = []

@@ -13,43 +13,64 @@ import SwiftUI
 struct GameView: View {
     
     static var scene: GameScene!
-    @State private var selection: Upgrade = .advertising
+    @State private var categorySelection: Upgrade = .advertising
+    @State private var customerSelection: Customer?
     
     init() {
         // Remake scene
-        let gameScene = GameScene(size: CGSize(width: 1440, height: 900))
+        let gameScene = GameScene(size: CGSize(width: 1440, height: 900), customerSelection: $customerSelection)
         gameScene.scaleMode = .aspectFit
         GameView.scene = gameScene
     }
     
     var body: some View {
         NavigationView {
-            List {
-                Text("Upgrades")
-                    .font(.system(size: 40))
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .padding(.vertical)
-                    .padding(.bottom, 12)
+            VStack {
+                VStack(alignment: .leading) {
+                    Text("Upgrades")
+                        .bigTitle()
+                        .padding(.vertical)
+                        .padding(.bottom, 12)
+                    
+                    VStack(spacing: 0) {
+                        ForEach(Upgrade.allCases) { upgradeType in
+                            Text(upgradeType.rawValue)
+                                .font(.largeTitle)
+                                .fontWeight(.semibold)
+                                .underline(if: categorySelection == upgradeType)
+                                .foregroundColor(.black)
+                                .padding(8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .cornerRadius(5)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    categorySelection = upgradeType
+                                }
+                        }
+                    }
+                    
+                    Spacer()
+                }
+                .frame(maxHeight: .infinity)
                 
-                VStack(spacing: 0) {
-                    ForEach(Upgrade.allCases) { upgradeType in
-                        Text(upgradeType.rawValue)
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
-                            .underline(if: selection == upgradeType)
-                            .foregroundColor(.black)
-                            .foregroundColor(selection == upgradeType ? Color.black : Color(white: 0.25))
-                            .padding(8)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .cornerRadius(5)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                selection = upgradeType
-                            }
+                VStack(alignment: .leading) {
+                    Text(categorySelection.rawValue)
+                        .bigTitle()
+                        .padding(.top)
+                    
+                    Text(categorySelection == .customer ? "Information" : "Upgrades")
+                        .font(.largeTitle)
+                        .foregroundColor(Color(white: 0.3))
+                        .padding(.bottom, 12)
+                    
+                    BackgroundBox {
+                        Text("Test")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
+                .frame(maxHeight: .infinity)
             }
+            .padding()
             .background(Color("Grass"))
             
             GeometryReader { geo in

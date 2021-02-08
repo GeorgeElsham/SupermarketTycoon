@@ -6,17 +6,28 @@
 //
 
 import SpriteKit
+import SwiftUI
 
 
 /// `SpriteKit` game scene.
 class GameScene: SKScene {
     
-    let gameInfo = GameInfo()
+    let gameInfo: GameInfo
     var balanceLabel: SKLabelNode!
     var graph: PathGraph!
     
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
+    }
+    
+    init(size: CGSize, customerSelection: Binding<Customer?>) {
+        gameInfo = GameInfo(customerSelection: customerSelection)
+        super.init(size: size)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
     }
     
     override func didMove(to view: SKView) {
