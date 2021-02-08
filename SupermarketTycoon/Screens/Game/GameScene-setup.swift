@@ -11,6 +11,13 @@ import SpriteKit
 extension GameScene {
     
     func setupAll() {
+        // Scene view settings
+        view?.ignoresSiblingOrder = true
+        if Global.debugMode {
+            view?.showsFPS = true
+            view?.showsNodeCount = true
+        }
+        
         // Initialize graph
         graph = PathGraph()
         

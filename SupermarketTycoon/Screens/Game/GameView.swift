@@ -18,7 +18,6 @@ struct GameView: View {
     init() {
         // Remake scene
         let gameScene = GameScene(size: CGSize(width: 1440, height: 900))
-        gameScene.view?.ignoresSiblingOrder = true
         gameScene.scaleMode = .aspectFit
         GameView.scene = gameScene
     }

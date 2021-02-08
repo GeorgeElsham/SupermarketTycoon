@@ -61,10 +61,8 @@ class Customer {
     
     /// Animate moving to a location by following a path.
     func move(along path: CGPath, to destination: Int, completion: @escaping () -> Void) {
-        // Actions
-        let walk = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
-        
-        node.run(walk) { [weak self] in
+        // Move
+        follow(path: path) { [weak self] in
             guard let self = self else { return }
             self.graphPosition = destination
             completion()
@@ -80,12 +78,32 @@ class Customer {
         path.addLine(to: doors)
         
         // Move
-        let leave = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
-        node.run(leave) {
+        follow(path: path) {
             // Fade out and disappear
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
             self.node.run(fadeOut, completion: self.node.removeFromParent)
         }
+    }
+    
+    /// Node follows path.
+    /// - Parameters:
+    ///   - path: Path for customer to follow.
+    ///   - completion: Ran when node has got to destination.
+    private func follow(path: CGPath, completion: @escaping () -> Void) {
+        // Actions
+        let follow = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
+        let zPos = SKAction.customAction(withDuration: 0.1) { [weak self] node, timeElapsed in
+            guard let self = self else { return }
+            let heightProp = self.node.position.y / GameView.scene.size.height
+            self.node.zPosition = ZPosition.customer.rawValue - heightProp
+        }
+        
+        // Run actions
+        node.run(follow) {
+            self.node.removeAction(forKey: "action-z_pos")
+            completion()
+        }
+        node.run(.repeatForever(zPos), withKey: "action-z_pos")
     }
 }
 
