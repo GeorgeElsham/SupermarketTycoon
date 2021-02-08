@@ -52,6 +52,11 @@ class Customer {
         customerNode.position.y = 45
         node.addChild(customerNode)
         GameView.scene.addChild(node)
+        
+        // Fade in
+        node.alpha = 0
+        let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+        node.run(fadeIn)
     }
     
     /// Animate moving to a location by following a path.
@@ -79,10 +84,7 @@ class Customer {
         node.run(leave) {
             // Fade out and disappear
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-            
-            self.node.run(fadeOut) {
-                self.node.removeFromParent()
-            }
+            self.node.run(fadeOut, completion: self.node.removeFromParent)
         }
     }
 }
@@ -169,9 +171,6 @@ extension Customer {
         let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         let fade = SKAction.sequence([fadeIn, .wait(forDuration: 0.1), fadeOut])
         let obtainAnim = SKAction.group([rise, fade])
-        
-        plus1.run(obtainAnim) {
-            plus1.removeFromParent()
-        }
+        plus1.run(obtainAnim, completion: plus1.removeFromParent)
     }
 }
