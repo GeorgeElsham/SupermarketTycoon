@@ -13,9 +13,11 @@ extension GameScene {
     func setupAll() {
         // Scene view settings
         view?.ignoresSiblingOrder = true
+        view?.shouldCullNonVisibleNodes = false
         if Global.debugMode {
             view?.showsFPS = true
             view?.showsNodeCount = true
+            view?.showsDrawCount = true
         }
         
         // Initialize graph

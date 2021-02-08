@@ -12,6 +12,12 @@ extension GameScene {
     
     /// Display all the paths customers can take.
     func displayGraph() {
+        // Render things in batches together for better performance
+        let wholePath = CGMutablePath()
+        let allNodes = SKNode()
+        let allLabels = SKNode()
+        
+        // Generate nodes
         for nodeGroup in graph.nodeGroups {
             for adjacentNode in nodeGroup.adjacent {
                 // Prevents lines between nodes being drawn twice
@@ -21,22 +27,31 @@ extension GameScene {
                 let path = CGMutablePath()
                 path.move(to: nodeGroup.point)
                 path.addLine(to: graph.getNodeGroup(with: adjacentNode).point)
-                path.closeSubpath()
-                
-                let line = SKShapeNode(path: path)
-                line.strokeColor = .red
-                line.zPosition = ZPosition.debugLine.rawValue
-                addChild(line)
+                wholePath.addPath(path)
             }
             
-            // Create the labels
-            let point = SKSpriteNode(color: .blue, size: CGSize(width: 40, height: 40))
+            // Create the node box
+            let nodeBox = SKSpriteNode(color: .blue, size: CGSize(width: 40, height: 40))
+            nodeBox.position = nodeGroup.point
+            allNodes.addChild(nodeBox)
+            
+            // Create the label
             let pointLabel = SKLabelNode(text: String(nodeGroup.id))
             pointLabel.verticalAlignmentMode = .center
-            point.addChild(pointLabel)
-            point.position = nodeGroup.point
-            point.zPosition = ZPosition.debugNode.rawValue
-            addChild(point)
+            pointLabel.position = nodeGroup.point
+            allLabels.addChild(pointLabel)
         }
+        
+        // Add debug stuff to scene
+        let line = SKShapeNode(path: wholePath)
+        line.strokeColor = .red
+        line.zPosition = ZPosition.debugLine.rawValue
+        addChild(line)
+        
+        allNodes.zPosition = ZPosition.debugNode.rawValue
+        addChild(allNodes)
+        
+        allLabels.zPosition = ZPosition.debugNodeLabel.rawValue
+        addChild(allLabels)
     }
 }

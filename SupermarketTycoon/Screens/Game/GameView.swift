@@ -66,6 +66,7 @@ struct GameView: View {
                         
                         Color("Grass")
                             .frame(height: barHeight(for: geo.size))
+                            .padding(.trailing, Global.debugMode ? 200 : 0)
                     }
                 }
             }
