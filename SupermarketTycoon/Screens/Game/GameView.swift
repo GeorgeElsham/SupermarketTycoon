@@ -61,7 +61,7 @@ struct GameView: View {
                     
                     switch categorySelection {
                     case .upgrades:
-                        UpgradesView()
+                        UpgradesView(outsideData: outsideData)
                         
                     case .customer:
                         CustomerView(customer: outsideData.customerSelection)
@@ -103,6 +103,7 @@ struct GameView: View {
 // MARK: - C: OutsideData
 class OutsideData: ObservableObject {
     @Published var customerSelection: Customer?
+    @Published var advertising: Int = 0
 }
 
 
@@ -120,11 +121,37 @@ enum Category: String, CaseIterable, Identifiable {
 
 // MARK: - S: UpgradesView
 struct UpgradesView: View {
-    #warning("Complete `UpgradesView`.")
+    
+    @ObservedObject private var outsideData: OutsideData
+    
+    init(outsideData: OutsideData) {
+        self.outsideData = outsideData
+    }
+    
     var body: some View {
         BackgroundBox {
-            Text("UPGRADES")
-                .foregroundColor(.black)
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Advertising:")
+                    
+                    Spacer()
+                    
+                    Text("\(String(outsideData.advertising))%")
+                    
+                    Image(systemName: "plus")
+                        .frame(width: 30, height: 30)
+                        .background(Color(white: 0.9))
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .onTapGesture {
+                            outsideData.advertising += 10
+                        }
+                }
+            }
+            .foregroundColor(.black)
         }
     }
 }

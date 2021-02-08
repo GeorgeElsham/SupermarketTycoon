@@ -13,7 +13,6 @@ import SwiftUI
 class GameScene: SKScene {
     
     let gameInfo: GameInfo
-    let outsideData: OutsideData
     var balanceLabel: SKLabelNode!
     var graph: PathGraph!
     
@@ -22,7 +21,6 @@ class GameScene: SKScene {
     }
     
     init(size: CGSize, outsideData: OutsideData) {
-        self.outsideData = outsideData
         gameInfo = GameInfo(outsideData: outsideData)
         super.init(size: size)
     }
@@ -49,7 +47,7 @@ class GameScene: SKScene {
         let location = event.location(in: self)
         let customerNodes = nodes(at: location).filter { $0.name == "Customer" }
         let customerObject = gameInfo.customers.first(where: { $0.node == customerNodes.first })?.customer
-        outsideData.customerSelection = customerObject
+        gameInfo.outsideData.customerSelection = customerObject
     }
     
     /// Spawn customers forever.
@@ -58,9 +56,20 @@ class GameScene: SKScene {
             guard let self = self else { return }
             self.generateCustomer()
         }
-        let pause = SKAction.wait(forDuration: 5, withRange: 3)
-        let spawnPeriodically = SKAction.sequence([customerSpawner, pause])
-        run(.repeatForever(spawnPeriodically))
+        
+        let advertising = gameInfo.outsideData.advertising
+        let ratio = 1 + Double(advertising / 100)
+        let duration: Double = 5 / ratio
+        let range: Double = 3 / ratio
+        let pause = SKAction.wait(forDuration: duration, withRange: range)
+        
+        let spawnPeriodically = SKAction.sequence([customerSpawner, pause, .run {
+            if self.gameInfo.outsideData.advertising != advertising {
+                GameView.scene.removeAction(forKey: "action-spawn")
+                GameView.scene.spawnCustomers()
+            }
+        }])
+        run(.repeatForever(spawnPeriodically), withKey: "action-spawn")
     }
     
     /// Spawn customer at the door and make it start shopping.
