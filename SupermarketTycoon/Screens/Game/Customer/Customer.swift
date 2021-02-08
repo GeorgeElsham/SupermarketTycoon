@@ -21,6 +21,7 @@ class Customer {
     ]
     
     let name: String
+    let age: Int
     let shoppingList: [ShoppingItem]
     private(set) var graphPosition: Int
     private let node: SKNode
@@ -31,6 +32,7 @@ class Customer {
         self.graph = graph
         self.gameInfo = gameInfo
         name = Customer.allNames.randomElement()!
+        age = Int.random(in: 20 ... 50)
         graphPosition = 1
         
         // Generate shopping list

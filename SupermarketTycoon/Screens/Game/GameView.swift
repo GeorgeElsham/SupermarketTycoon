@@ -15,7 +15,7 @@ struct GameView: View {
     
     static var scene: GameScene!
     @ObservedObject private var outsideData = OutsideData()
-    @State private var categorySelection: Upgrade = .advertising
+    @State private var categorySelection: Category = .upgrades
     
     init() {
         // Remake scene
@@ -28,13 +28,13 @@ struct GameView: View {
         NavigationView {
             VStack {
                 VStack(alignment: .leading) {
-                    Text("Upgrades")
+                    Text("Supermarket Tycoon")
                         .bigTitle()
                         .padding(.vertical)
                         .padding(.bottom, 12)
                     
                     VStack(spacing: 0) {
-                        ForEach(Upgrade.allCases) { upgradeType in
+                        ForEach(Category.allCases) { upgradeType in
                             Text(upgradeType.rawValue)
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
@@ -59,14 +59,12 @@ struct GameView: View {
                         .bigTitle()
                         .padding(.top)
                     
-                    Text(categorySelection == .customer ? "Information" : "Upgrades")
-                        .font(.largeTitle)
-                        .foregroundColor(Color(white: 0.3))
-                        .padding(.bottom, 12)
-                    
-                    BackgroundBox {
-                        Text("Test: \(outsideData.customerSelection?.name ?? "-")")
-                            .foregroundColor(.black)
+                    switch categorySelection {
+                    case .upgrades:
+                        UpgradesView()
+                        
+                    case .customer:
+                        CustomerView(customer: outsideData.customerSelection)
                     }
                 }
                 .frame(maxHeight: .infinity)
@@ -105,4 +103,89 @@ struct GameView: View {
 // MARK: - C: OutsideData
 class OutsideData: ObservableObject {
     @Published var customerSelection: Customer?
+}
+
+
+
+// MARK: - E: Category
+/// Different types of upgrades available.
+enum Category: String, CaseIterable, Identifiable {
+    case upgrades = "Upgrades"
+    case customer = "Customer"
+    
+    var id: String { rawValue }
+}
+
+
+
+// MARK: - S: UpgradesView
+struct UpgradesView: View {
+    #warning("Complete `UpgradesView`.")
+    var body: some View {
+        BackgroundBox {
+            Text("UPGRADES")
+                .foregroundColor(.black)
+        }
+    }
+}
+
+
+
+// MARK: - S: CustomerView
+/// Display information about customers.
+struct CustomerView: View {
+    
+    private let customer: Customer?
+    
+    init(customer: Customer?) {
+        self.customer = customer
+    }
+    
+    var body: some View {
+        if let customer = customer {
+            BackgroundBox {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Name:")
+                        Text(customer.name)
+                    }
+                    .foregroundColor(.black)
+                    
+                    HStack {
+                        Text("Age:")
+                        Text(String(customer.age))
+                    }
+                    .foregroundColor(.black)
+                    
+                    Spacer()
+                        .frame(height: 30)
+                    
+                    Text("Shopping list:")
+                        .foregroundColor(.black)
+                    
+                    BackgroundBox {
+                        VStack {
+                            ForEach(customer.shoppingList, id: \.item) { shoppingItem in
+                                HStack {
+                                    Text(shoppingItem.item.name.plural)
+                                        .foregroundColor(.black)
+                                    
+                                    Spacer()
+                                    
+                                    Text(String("x\(shoppingItem.quantityRequired)"))
+                                        .foregroundColor(shoppingItem.color)
+                                }
+                                .frame(width: 200)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            BackgroundBox {
+                Text("No customer selected")
+                    .foregroundColor(Color(white: 0.5))
+            }
+        }
+    }
 }

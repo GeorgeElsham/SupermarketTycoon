@@ -6,6 +6,7 @@
 //
 
 import SpriteKit
+import SwiftUI
 
 
 class ShoppingItem {
@@ -17,9 +18,9 @@ class ShoppingItem {
         quantityObtained == quantityRequired
     }
     
-    var color: SKColor {
+    var color: Color {
         if quantityObtained == 0 {
-            return .black
+            return .red
         } else if quantityObtained < quantityRequired {
             return .orange
         } else {

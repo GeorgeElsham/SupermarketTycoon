@@ -19,6 +19,7 @@ struct BackgroundBox<Content: View>: View {
     
     var body: some View {
         content()
+            .font(.title.weight(.semibold))
             .frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,
