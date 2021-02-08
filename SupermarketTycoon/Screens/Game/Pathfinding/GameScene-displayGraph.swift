@@ -13,14 +13,14 @@ extension GameScene {
     /// Display all the paths customers can take.
     func displayGraph() {
         for nodeGroup in graph.nodeGroups {
-            for adjacentNode in nodeGroup.adjacentNodes {
+            for adjacentNode in nodeGroup.adjacent {
                 // Prevents lines between nodes being drawn twice
-                guard adjacentNode.id < nodeGroup.id else { continue }
+                guard adjacentNode < nodeGroup.id else { continue }
                 
                 // Create the lines
                 let path = CGMutablePath()
                 path.move(to: nodeGroup.point)
-                path.addLine(to: graph.getNodeGroup(with: adjacentNode.id).point)
+                path.addLine(to: graph.getNodeGroup(with: adjacentNode).point)
                 path.closeSubpath()
                 
                 let line = SKShapeNode(path: path)

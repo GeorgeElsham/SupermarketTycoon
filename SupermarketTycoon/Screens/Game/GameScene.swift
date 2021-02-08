@@ -14,7 +14,6 @@ class GameScene: SKScene {
     let gameInfo = GameInfo()
     var balanceLabel: SKLabelNode!
     var graph: PathGraph!
-    var customers: [Person] = []
     
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
@@ -44,6 +43,6 @@ class GameScene: SKScene {
     /// Spawn customer at the door and make it start shopping.
     func generateCustomer() {
         let person = Person(in: graph)
-        person.startShopping()
+        person.startShopping(gameInfo: gameInfo)
     }
 }
