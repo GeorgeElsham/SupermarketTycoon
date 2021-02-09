@@ -111,8 +111,9 @@ class GraphGeneration {
     /// - Parameters:
     ///   - customer: Customer to move.
     ///   - available: Destination to move the customer to.
+    ///   - foundCheckout: Passes in checkout found.
     ///   - completion: Completion handler to run after moving to the destination. Parameter is checkout index.
-    func pathFindToNearestCheckout(customer: Customer, available: Int, completion: @escaping (Int) -> Void) {
+    func pathFindToNearestCheckout(customer: Customer, available: Int, foundCheckout: (Int) -> Void, completion: @escaping (Int) -> Void) {
         // Mark all nodes unvisited and set the initial node
         let allNodes: [NodeInfo] = PathGraph.nodeRange.map(NodeInfo.init)
         var unvisitedNodes: Set<NodeInfo> = Set(allNodes)
@@ -211,9 +212,13 @@ class GraphGeneration {
             }
         }
         
+        // Show index of checkout
+        let indexOfCheckout = Checkout.indexOfCheckout(at: closest.node)
+        foundCheckout(indexOfCheckout)
+        
         // Move customer
         generatePointsAndMove(customer: customer, to: closest.node, allNodes: allNodes) {
-            completion(Checkout.indexOfCheckout(at: closest.node))
+            completion(indexOfCheckout)
         }
     }
 }

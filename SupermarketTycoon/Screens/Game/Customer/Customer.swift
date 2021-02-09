@@ -75,6 +75,17 @@ class Customer {
         }
     }
     
+    /// Moves customer in the queue.
+    /// - Parameters:
+    ///   - index: Place in queue customer is at. Determines position it should be in.
+    ///   - completion: Ran when moved to destination.
+    func moveDownInQueue(to index: Int, completion: @escaping () -> Void) {
+        let downPath = CGMutablePath()
+        downPath.move(to: node.position)
+        downPath.addLine(to: CGPoint(x: node.position.x, y: 405 + 70 * CGFloat(index)))
+        follow(path: downPath, completion: completion)
+    }
+    
     /// Customer walks from current position to door of store and leaves.
     func leaveStore() {
         // Make path
@@ -92,10 +103,10 @@ class Customer {
                 self.node.removeFromParent()
                 
                 // Remove from customers list so Person can be deallocated
-                if self.gameInfo.outsideData.customerSelection?.node == self.node {
+                if self.gameInfo.outsideData.customerSelection == self {
                     self.gameInfo.outsideData.customerSelection = nil
                 }
-                guard let index = self.gameInfo.customers.firstIndex(where: { $0.customer?.node == self.node }) else { return }
+                guard let index = self.gameInfo.customers.firstIndex(where: { $0.customer == self }) else { return }
                 self.gameInfo.customers.remove(at: index)
             }
         }
@@ -124,6 +135,14 @@ class Customer {
 }
 
 
+// MARK: Ext: Equatable
+extension Customer: Equatable {
+    static func == (lhs: Customer, rhs: Customer) -> Bool {
+        lhs.node == rhs.node
+    }
+}
+
+
 // MARK: Ext: Shopping
 extension Customer {
     /// Customer will shop for every item on their shopping list. After, they go to the checkouts, then leave.
@@ -132,26 +151,38 @@ extension Customer {
             guard let self = self else { return }
             
             // Shopped for every item, now pick best checkout
-            let orderedCheckouts = gameInfo.checkouts.sorted(by: <)
+            let orderedCheckouts = gameInfo.checkouts.sorted(by: <).filter({ $0.queue.count < 3 })
             
-            // Path find to checkout
+            // Make sure there are available checkouts
+            guard !orderedCheckouts.isEmpty else {
+                #warning("Change how customers 'rage' out of store.")
+                self.node.alpha = 0.5
+                self.leaveStore()
+                return
+            }
+            
+            // Pick appropriate checkout
             if orderedCheckouts.count == 1 || orderedCheckouts.first! < orderedCheckouts[1] {
                 // Only 1 checkout, only thing to use
                 // OR
                 // Smallest queue, go to this checkout
                 let checkout = orderedCheckouts.first!
+                try! checkout.reservePlaceInQueue(self)
+                
+                // Path-find
                 self.graph.generation.pathFind(customer: self, to: checkout.node) {
-                    #warning("Temporarily no queue")
-                    checkout.addCustomerToQueue(self)
-                    checkout.processFirstInQueue()
+                    try! checkout.addCustomerToQueue(self)
                 }
             } else {
                 // Multiple checkouts with same queue length, pick nearest small queue
-                self.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count) { checkoutIndex in
-                    #warning("Temporarily no queue")
-                    let checkout = gameInfo.checkouts[checkoutIndex]
-                    checkout.addCustomerToQueue(self)
-                    checkout.processFirstInQueue()
+                var checkout: Checkout!
+                
+                // Path-find
+                self.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count, foundCheckout: { checkoutIndex in
+                    checkout = gameInfo.checkouts[checkoutIndex]
+                    try! checkout.reservePlaceInQueue(self)
+                }) { _ in
+                    try! checkout.addCustomerToQueue(self)
                 }
             }
         }

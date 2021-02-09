@@ -29,32 +29,32 @@ class PathGraph {
         ),
         NodeGroup(
             id: 2,
-            point: CGPoint(x: 60, y: 425),
+            point: CGPoint(x: 60, y: 545),
             adjacent: [8, 13]
         ),
         NodeGroup(
             id: 3,
-            point: CGPoint(x: 437, y: 425),
+            point: CGPoint(x: 437, y: 545),
             adjacent: [8, 9]
         ),
         NodeGroup(
             id: 4,
-            point: CGPoint(x: 480, y: 425),
+            point: CGPoint(x: 480, y: 545),
             adjacent: [9, 10]
         ),
         NodeGroup(
             id: 5,
-            point: CGPoint(x: 960, y: 425),
+            point: CGPoint(x: 960, y: 545),
             adjacent: [10, 11]
         ),
         NodeGroup(
             id: 6,
-            point: CGPoint(x: 1003, y: 425),
+            point: CGPoint(x: 1003, y: 545),
             adjacent: [11, 12]
         ),
         NodeGroup(
             id: 7,
-            point: CGPoint(x: 1380, y: 425),
+            point: CGPoint(x: 1380, y: 545),
             adjacent: [12, 22]
         ),
         NodeGroup(
