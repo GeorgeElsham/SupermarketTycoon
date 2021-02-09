@@ -43,7 +43,7 @@ class Checkout {
     ]
     
     let number: Int
-    let node: Int
+    let positions: Position
     private(set) var queue: [QueueItem] = []
     private let checkoutNode: SKSpriteNode
     
@@ -51,8 +51,7 @@ class Checkout {
         self.number = number
         
         // Get checkout positions
-        let positions = Checkout.checkoutPositions[number - 1]
-        node = positions.node
+        positions = Checkout.checkoutPositions[number - 1]
         
         // Create sprite node
         let texture = SKTexture(imageNamed: "checkout_\(positions.side.rawValue)")
@@ -134,6 +133,7 @@ class Checkout {
             
             // Get duration of checkout time
             let totalDuration = Double(firstCustomer.shoppingList.count) * Checkout.purchaseItemTime
+            firstCustomer.nowAtCheckout(side: self.positions.side)
             
             // Purchase all items
             DispatchQueue.main.asyncAfter(deadline: .now() + totalDuration) { [weak self] in
@@ -146,6 +146,7 @@ class Checkout {
                 }
                 
                 // Finished in queue
+                firstCustomer.nowLeftCheckout()
                 self.queue.removeFirst()
                 let totalItemCount = firstCustomer.shoppingList.map(\.quantityRequired).reduce(0, +)
                 GameView.scene.gameInfo.addMoney(amount: totalItemCount)

@@ -25,6 +25,7 @@ class Customer {
     let shoppingList: [ShoppingItem]
     private(set) var graphPosition: Int
     private let node: SKNode
+    private let basketNode: SKSpriteNode
     
     init() {
         name = Customer.allNames.randomElement()!
@@ -46,6 +47,12 @@ class Customer {
         node = SKNode()
         node.position = GameView.scene.graph.getNodeGroup(with: graphPosition).point
         node.zPosition = ZPosition.customer.rawValue
+        
+        // Give customer basket
+        basketNode = SKSpriteNode(imageNamed: "basket-empty")
+        basketNode.position = CGPoint(x: -14, y: 32)
+        basketNode.zPosition = 0.01
+        node.addChild(basketNode)
         
         // Create customer node
         let customerNode = SKSpriteNode(imageNamed: "person_customer")
@@ -170,7 +177,7 @@ extension Customer {
                 try! checkout.reservePlaceInQueue(self)
                 
                 // Path-find
-                GameView.scene.graph.generation.pathFind(customer: self, to: checkout.node) {
+                GameView.scene.graph.generation.pathFind(customer: self, to: checkout.positions.node) {
                     try! checkout.addCustomerToQueue(self)
                 }
             } else {
@@ -186,6 +193,27 @@ extension Customer {
                 }
             }
         }
+    }
+    
+    /// Trigger when customer arrives to checkout. Displays basket
+    /// emptying and putting items on checkout.
+    /// - Parameter side: Side of the checkout.
+    func nowAtCheckout(side: Checkout.Side) {
+        // Show empty basket
+        basketNode.texture = SKTexture(imageNamed: "basket-empty")
+        
+        // Show items on belt
+        let items = SKSpriteNode(imageNamed: "items")
+        items.position = CGPoint(x: side == .left ? 57 : -57, y: 20)
+        items.name = "Items"
+        node.addChild(items)
+    }
+    
+    /// Trigger when customer leaves checkout. Puts items back in basket.
+    func nowLeftCheckout() {
+        // Back to normal
+        basketNode.texture = SKTexture(imageNamed: "basket-full")
+        node.childNode(withName: "Items")?.removeFromParent()
     }
     
     /// Go to the shelf for this item to get. Get all items off the shelf in shopping
@@ -211,6 +239,7 @@ extension Customer {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Customer.pickItemTime) {
                     item.getItem()
                     self.pickedUpItemAnimation()
+                    self.basketNode.texture = SKTexture(imageNamed: "basket-full")
                     
                     // Go to next item if getting last item
                     guard i == item.quantityRequired else { return }
