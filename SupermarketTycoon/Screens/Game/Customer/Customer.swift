@@ -185,10 +185,13 @@ extension Customer {
                 var checkout: Checkout!
                 
                 // Path-find
-                GameView.scene.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count, foundCheckout: { checkoutIndex in
+                GameView.scene.graph.generation.pathFindToNearestCheckout(
+                    customer: self,
+                    available: GameView.scene.gameInfo.checkouts.count
+                ) { checkoutIndex in
                     checkout = GameView.scene.gameInfo.checkouts[checkoutIndex]
                     try! checkout.reservePlaceInQueue(self)
-                }) { _ in
+                } completion: { _ in
                     try! checkout.addCustomerToQueue(self)
                 }
             }

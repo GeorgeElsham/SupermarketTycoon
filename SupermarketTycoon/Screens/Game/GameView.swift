@@ -104,6 +104,7 @@ struct GameView: View {
 class OutsideData: ObservableObject {
     @Published var customerSelection: Customer?
     @Published var advertising: Int = 0
+    @Published var checkouts: Int = 1
 }
 
 
@@ -130,25 +131,25 @@ struct UpgradesView: View {
     
     var body: some View {
         BackgroundBox {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Advertising:")
-                    
                     Spacer()
-                    
                     Text("\(String(outsideData.advertising))%")
                     
-                    Image(systemName: "plus")
-                        .frame(width: 30, height: 30)
-                        .background(Color(white: 0.9))
-                        .cornerRadius(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
-                        .onTapGesture {
-                            outsideData.advertising += 10
-                        }
+                    AddNew {
+                        outsideData.advertising += 10
+                    }
+                }
+                
+                HStack {
+                    Text("Checkouts:")
+                    Spacer()
+                    Text(String(outsideData.checkouts))
+                    
+                    AddNew {
+                        try? GameView.scene.gameInfo.unlockNextCheckout()
+                    }
                 }
             }
             .foregroundColor(.black)
@@ -214,5 +215,29 @@ struct CustomerView: View {
                     .foregroundColor(Color(white: 0.5))
             }
         }
+    }
+}
+
+
+
+// MARK: - S: AddNew
+/// Button for adding more of something.
+struct AddNew: View {
+    private let action: () -> Void
+    
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
+    
+    var body: some View {
+        Image(systemName: "plus")
+            .frame(width: 30, height: 30)
+            .background(Color(white: 0.9))
+            .cornerRadius(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.black, lineWidth: 1)
+            )
+            .onTapGesture(perform: action)
     }
 }

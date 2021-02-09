@@ -107,7 +107,7 @@ class GraphGeneration {
     ///
     /// - Parameters:
     ///   - customer: Customer to move.
-    ///   - available: Destination to move the customer to.
+    ///   - available: Total number of checkouts available.
     ///   - foundCheckout: Passes in checkout found.
     ///   - completion: Completion handler to run after moving to the destination. Parameter is checkout index.
     func pathFindToNearestCheckout(customer: Customer, available: Int, foundCheckout: (Int) -> Void, completion: @escaping (Int) -> Void) {
@@ -123,7 +123,10 @@ class GraphGeneration {
         
         var closest: (distance: CGFloat, node: Int) = (.infinity, 0)
         
-        for destination in 2 ... available - 1 {
+        for checkout in GameView.scene.gameInfo.checkouts where checkout.queue.count < 3 {
+            // Get destination of checkout
+            let destination = checkout.positions.node
+            
             // Repeat until the path is found
             while searchingPath {
                 // Adjacent distances

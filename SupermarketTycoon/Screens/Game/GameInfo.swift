@@ -29,7 +29,11 @@ class GameInfo {
         }
     }
     /// Existing checkouts in the store.
-    private(set) var checkouts: [Checkout]
+    private(set) var checkouts: [Checkout] {
+        didSet {
+            outsideData.checkouts = checkouts.count
+        }
+    }
     
     init(outsideData: OutsideData) {
         self.outsideData = outsideData
@@ -58,8 +62,9 @@ extension GameInfo {
 
 // MARK: Ext: Money
 extension GameInfo {
-    enum MoneyError: Error {
+    enum GameInfoError: Error {
         case insufficientFunds
+        case enoughCheckouts
     }
     
     var formattedMoney: String {
@@ -72,7 +77,7 @@ extension GameInfo {
     
     func removeMoney(amount: Int) throws {
         guard money >= amount else {
-            throw MoneyError.insufficientFunds
+            throw GameInfoError.insufficientFunds
         }
         money -= amount
     }
@@ -86,6 +91,11 @@ extension GameInfo {
     }
     
     func unlockNextCheckout() throws {
+        // Make sure there is a maximum of 6 checkouts
+        guard checkouts.count < 6 else {
+            throw GameInfoError.enoughCheckouts
+        }
+        
         // Get price
         let nextCheckoutNumber = checkouts.count + 1
         let price = priceOfCheckout(number: nextCheckoutNumber)
