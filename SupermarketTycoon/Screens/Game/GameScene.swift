@@ -59,8 +59,8 @@ class GameScene: SKScene {
         
         let advertising = gameInfo.outsideData.advertising
         let ratio = 1 + Double(advertising / 100)
-        let duration: Double = 5 / ratio
-        let range: Double = 3 / ratio
+        let duration: Double = 3 / ratio
+        let range: Double = 1.6 / ratio
         let pause = SKAction.wait(forDuration: duration, withRange: range)
         
         let spawnPeriodically = SKAction.sequence([customerSpawner, pause, .run {
