@@ -80,6 +80,8 @@ class Checkout {
         DispatchQueue.main.asyncAfter(deadline: .now() + totalDuration) { [weak self] in
             guard let self = self else { return }
             self.queue.removeFirst()
+            let totalItemCount = firstCustomer.shoppingList.map(\.quantityRequired).reduce(0, +)
+            GameView.scene.gameInfo.addMoney(amount: totalItemCount)
             firstCustomer.leaveStore()
         }
     }
