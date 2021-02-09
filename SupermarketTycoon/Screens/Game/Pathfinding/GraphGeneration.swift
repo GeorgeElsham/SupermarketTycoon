@@ -244,7 +244,7 @@ extension GraphGeneration {
         
         // Convert to smooth path
         let pathPoints = fullPath.map { graph.getNodeGroup(with: $0.id).point }
-        let smoothPath = generatePath(from: pathPoints)
+        let smoothPath = GraphGeneration.generatePath(from: pathPoints)
         
         // Make customer walk along path
         customer.move(along: smoothPath, to: destination) {
@@ -254,7 +254,7 @@ extension GraphGeneration {
     
     /// Generates a smooth path from a series of points. Makes
     /// walking look more natural as there are no sharp turns.
-    private func generatePath(from points: [CGPoint]) -> CGMutablePath {
+    static func generatePath(from points: [CGPoint]) -> CGMutablePath {
         // Make sure the path is a valid path-finding solution
         guard let firstPoint = points.first else {
             fatalError("Solution path is empty.")

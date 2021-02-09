@@ -87,12 +87,16 @@ class Customer {
     }
     
     /// Customer walks from current position to door of store and leaves.
-    func leaveStore() {
+    /// - Parameter fromCheckouts: If leaving the store from the checkouts, the customer will walk further down past the checkout.
+    func leaveStore(fromCheckouts: Bool) {
         // Make path
         let doors = graph.getNodeGroup(with: 1).point
-        let path = CGMutablePath()
-        path.move(to: node.position)
-        path.addLine(to: doors)
+        let points = [
+            node.position,
+            node.position.offset(by: CGSize(width: 0, height: -100)),
+            doors
+        ]
+        let path = GraphGeneration.generatePath(from: points)
         
         // Move
         follow(path: path) {
@@ -157,7 +161,7 @@ extension Customer {
             guard !orderedCheckouts.isEmpty else {
                 #warning("Change how customers 'rage' out of store.")
                 self.node.alpha = 0.5
-                self.leaveStore()
+                self.leaveStore(fromCheckouts: false)
                 return
             }
             

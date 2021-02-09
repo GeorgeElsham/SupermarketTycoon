@@ -149,7 +149,7 @@ class Checkout {
                 self.queue.removeFirst()
                 let totalItemCount = firstCustomer.shoppingList.map(\.quantityRequired).reduce(0, +)
                 GameView.scene.gameInfo.addMoney(amount: totalItemCount)
-                firstCustomer.leaveStore()
+                firstCustomer.leaveStore(fromCheckouts: true)
                 
                 // Move to next in queue
                 guard !self.queue.isEmpty && self.queue.first!.isWaiting == true else { return }
