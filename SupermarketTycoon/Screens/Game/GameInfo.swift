@@ -26,6 +26,7 @@ class GameInfo {
     private(set) var money: Int {
         didSet {
             GameView.scene.balanceLabel.text = formattedMoney
+            outsideData.money = money
         }
     }
     /// Existing checkouts in the store.
@@ -88,6 +89,10 @@ extension GameInfo {
 extension GameInfo {
     func priceOfCheckout(number: Int) -> Int {
         number * 50 - 50
+    }
+    
+    func priceOfNextCheckout() -> Int {
+        priceOfCheckout(number: checkouts.count + 1)
     }
     
     func unlockNextCheckout() throws {

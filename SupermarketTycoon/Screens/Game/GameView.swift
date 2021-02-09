@@ -60,14 +60,12 @@ struct GameView: View {
                         .padding(.top)
                     
                     switch categorySelection {
-                    case .upgrades:
-                        UpgradesView(outsideData: outsideData)
-                        
-                    case .customer:
-                        CustomerView(customer: outsideData.customerSelection)
+                    case .upgrades:     UpgradesView()
+                    case .customer:     CustomerView()
                     }
                 }
                 .frame(maxHeight: .infinity)
+                .environmentObject(outsideData)
             }
             .padding()
             .background(Color("Grass"))
@@ -103,6 +101,7 @@ struct GameView: View {
 // MARK: - C: OutsideData
 class OutsideData: ObservableObject {
     @Published var customerSelection: Customer?
+    @Published var money: Int = 0
     @Published var advertising: Int = 0
     @Published var checkouts: Int = 1
 }
@@ -123,33 +122,28 @@ enum Category: String, CaseIterable, Identifiable {
 // MARK: - S: UpgradesView
 struct UpgradesView: View {
     
-    @ObservedObject private var outsideData: OutsideData
+    @EnvironmentObject private var outsideData: OutsideData
     
-    init(outsideData: OutsideData) {
-        self.outsideData = outsideData
-    }
+    init() {}
     
     var body: some View {
         BackgroundBox {
             VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text("Advertising:")
-                    Spacer()
-                    Text("\(String(outsideData.advertising))%")
-                    
-                    AddNew {
-                        outsideData.advertising += 10
-                    }
+                UpgradeItem(
+                    "Advertising",
+                    cost: 10,
+                    value: "\(outsideData.advertising)%"
+                ) {
+                    try? GameView.scene.gameInfo.removeMoney(amount: 10)
+                    outsideData.advertising += 10
                 }
                 
-                HStack {
-                    Text("Checkouts:")
-                    Spacer()
-                    Text(String(outsideData.checkouts))
-                    
-                    AddNew {
-                        try? GameView.scene.gameInfo.unlockNextCheckout()
-                    }
+                UpgradeItem(
+                    "Checkouts",
+                    cost: GameView.scene.gameInfo.priceOfNextCheckout(),
+                    value: String(outsideData.checkouts)
+                ) {
+                    try? GameView.scene.gameInfo.unlockNextCheckout()
                 }
             }
             .foregroundColor(.black)
@@ -163,14 +157,12 @@ struct UpgradesView: View {
 /// Display information about customers.
 struct CustomerView: View {
     
-    private let customer: Customer?
+    @EnvironmentObject private var outsideData: OutsideData
     
-    init(customer: Customer?) {
-        self.customer = customer
-    }
+    init() {}
     
     var body: some View {
-        if let customer = customer {
+        if let customer = outsideData.customerSelection {
             BackgroundBox {
                 VStack(alignment: .leading) {
                     HStack {
@@ -220,24 +212,61 @@ struct CustomerView: View {
 
 
 
+// MARK: - S: UpgradeItem
+struct UpgradeItem: View {
+    
+    @EnvironmentObject private var outsideData: OutsideData
+    
+    private let title: String
+    private let cost: Int
+    private let value: String
+    private let action: () -> Void
+    
+    private var costColor: Color {
+        GameView.scene.gameInfo.money >= cost ? .green : .red
+    }
+    
+    init(_ title: String, cost: Int, value: String, action: @escaping () -> Void) {
+        self.title = title
+        self.cost = cost
+        self.value = value
+        self.action = action
+    }
+    
+    var body: some View {
+        HStack {
+            Text("\(title):")
+            Text("£\(cost)").foregroundColor(costColor)
+            Spacer()
+            Text(value)
+            
+            AddNew(isEnabled: outsideData.money >= cost, action: action)
+        }
+    }
+}
+
+
+
 // MARK: - S: AddNew
 /// Button for adding more of something.
 struct AddNew: View {
+    private let isEnabled: Bool
     private let action: () -> Void
     
-    init(action: @escaping () -> Void) {
+    init(isEnabled: Bool, action: @escaping () -> Void) {
+        self.isEnabled = isEnabled
         self.action = action
     }
     
     var body: some View {
         Image(systemName: "plus")
             .frame(width: 30, height: 30)
-            .background(Color(white: 0.9))
+            .background(Color(white: isEnabled ? 0.9 : 0.7))
             .cornerRadius(5)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.black, lineWidth: 1)
             )
-            .onTapGesture(perform: action)
+            .onTapGesture(perform: isEnabled ? action : {})
     }
 }
