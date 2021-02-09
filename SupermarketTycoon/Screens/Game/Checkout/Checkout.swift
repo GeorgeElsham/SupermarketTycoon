@@ -61,6 +61,19 @@ class Checkout {
         checkoutNode.position = Scaling.point(CGPoint(x: positions.x, y: 415))
         checkoutNode.zPosition = ZPosition.checkout.rawValue
         GameView.scene.addChild(checkoutNode)
+        
+        // Create cashier
+        let cashier = SKSpriteNode(imageNamed: "person_cashier")
+        cashier.position = CGPoint(x: positions.side == .left ? 27 : -27, y: 0)
+        checkoutNode.addChild(cashier)
+        
+        // Animate cashier bounce
+        let bounceUp = SKAction.moveTo(y: 2, duration: 1)
+        let bounceDown = SKAction.moveTo(y: -2, duration: 1)
+        bounceUp.timingMode = .easeInEaseOut
+        bounceDown.timingMode = .easeInEaseOut
+        let bounce = SKAction.sequence([bounceUp, bounceDown])
+        cashier.run(.repeatForever(bounce))
     }
     
     /// Get the index of the checkout in the `GameInfo` `checkouts` array.
