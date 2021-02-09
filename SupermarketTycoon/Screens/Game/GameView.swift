@@ -131,17 +131,19 @@ struct UpgradesView: View {
             VStack(alignment: .leading, spacing: 10) {
                 UpgradeItem(
                     "Advertising",
-                    cost: 10,
-                    value: "\(outsideData.advertising)%"
+                    cost: 10 + outsideData.advertising / 2,
+                    value: "\(outsideData.advertising)%",
+                    reachedLimit: outsideData.advertising == 500
                 ) {
-                    try? GameView.scene.gameInfo.removeMoney(amount: 10)
+                    try? GameView.scene.gameInfo.removeMoney(amount: 10 + outsideData.advertising / 2)
                     outsideData.advertising += 10
                 }
                 
                 UpgradeItem(
                     "Checkouts",
                     cost: GameView.scene.gameInfo.priceOfNextCheckout(),
-                    value: String(outsideData.checkouts)
+                    value: String(outsideData.checkouts),
+                    reachedLimit: outsideData.checkouts == 6
                 ) {
                     try? GameView.scene.gameInfo.unlockNextCheckout()
                 }
@@ -220,27 +222,35 @@ struct UpgradeItem: View {
     private let title: String
     private let cost: Int
     private let value: String
+    private let reachedLimit: Bool
     private let action: () -> Void
     
     private var costColor: Color {
-        GameView.scene.gameInfo.money >= cost ? .green : .red
+        outsideData.money >= cost ? .green : .red
     }
     
-    init(_ title: String, cost: Int, value: String, action: @escaping () -> Void) {
+    init(_ title: String, cost: Int, value: String, reachedLimit: Bool, action: @escaping () -> Void) {
         self.title = title
         self.cost = cost
         self.value = value
+        self.reachedLimit = reachedLimit
         self.action = action
     }
     
     var body: some View {
         HStack {
             Text("\(title):")
-            Text("£\(cost)").foregroundColor(costColor)
+            
+            if reachedLimit {
+                Text("MAX").foregroundColor(.green)
+            } else {
+                Text("£\(cost)").foregroundColor(costColor)
+            }
+            
             Spacer()
             Text(value)
             
-            AddNew(isEnabled: outsideData.money >= cost, action: action)
+            AddNew(isEnabled: outsideData.money >= cost && !reachedLimit, action: action)
         }
     }
 }
