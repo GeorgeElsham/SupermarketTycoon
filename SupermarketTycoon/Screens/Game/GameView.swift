@@ -17,6 +17,14 @@ struct GameView: View {
     @ObservedObject private var outsideData = OutsideData()
     @State private var categorySelection: Category = .upgrades
     
+    var preferredCategorySelection: Category {
+        if outsideData.customerSelection == nil {
+            return categorySelection
+        } else {
+            return .customer
+        }
+    }
+    
     init() {
         // Remake scene
         let gameScene = GameScene(size: CGSize(width: 1440, height: 900), outsideData: outsideData)
@@ -38,7 +46,7 @@ struct GameView: View {
                             Text(upgradeType.rawValue)
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
-                                .underline(if: categorySelection == upgradeType)
+                                .underline(if: preferredCategorySelection == upgradeType)
                                 .foregroundColor(.black)
                                 .padding(8)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -55,11 +63,11 @@ struct GameView: View {
                 .frame(maxHeight: .infinity)
                 
                 VStack(alignment: .leading) {
-                    Text(categorySelection.rawValue)
+                    Text(preferredCategorySelection.rawValue)
                         .bigTitle()
                         .padding(.top)
                     
-                    switch categorySelection {
+                    switch preferredCategorySelection {
                     case .upgrades:     UpgradesView()
                     case .customer:     CustomerView()
                     }
