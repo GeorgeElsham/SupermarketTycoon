@@ -12,11 +12,8 @@ import Foundation
 class GraphGeneration {
     
     private static let pathCurveSize: CGFloat = 80
-    unowned private var graph: PathGraph
     
-    init(graph: PathGraph) {
-        self.graph = graph
-    }
+    init() {}
     
     // MARK: Regular pathfinding
     /// Path-find from the current position of the `customer` passed in, to a `destination` node.
@@ -41,7 +38,7 @@ class GraphGeneration {
         // Repeat until the path is found
         while searchingPath {
             // Adjacent distances
-            let adjacentIds = graph.getNodeGroup(with: current.id).adjacent
+            let adjacentIds = GameView.scene.graph.getNodeGroup(with: current.id).adjacent
             var adjacentNodes = [NodeInfo]()
             
             for adjacentId in adjacentIds {
@@ -50,8 +47,8 @@ class GraphGeneration {
                 adjacentNodes.append(adjacentNode)
                 
                 // Calculate distance
-                let currentPoint = graph.getNodeGroup(with: current.id).point
-                let adjacentPoint = graph.getNodeGroup(with: adjacentId).point
+                let currentPoint = GameView.scene.graph.getNodeGroup(with: current.id).point
+                let adjacentPoint = GameView.scene.graph.getNodeGroup(with: adjacentId).point
                 let newDistance = current.distance + currentPoint.difference(to: adjacentPoint).distance
                 
                 // Set minimum distance
@@ -130,7 +127,7 @@ class GraphGeneration {
             // Repeat until the path is found
             while searchingPath {
                 // Adjacent distances
-                let adjacentIds = graph.getNodeGroup(with: current.id).adjacent
+                let adjacentIds = GameView.scene.graph.getNodeGroup(with: current.id).adjacent
                 var adjacentNodes = [NodeInfo]()
                 
                 for adjacentId in adjacentIds {
@@ -139,8 +136,8 @@ class GraphGeneration {
                     adjacentNodes.append(adjacentNode)
                     
                     // Calculate distance
-                    let currentPoint = graph.getNodeGroup(with: current.id).point
-                    let adjacentPoint = graph.getNodeGroup(with: adjacentId).point
+                    let currentPoint = GameView.scene.graph.getNodeGroup(with: current.id).point
+                    let adjacentPoint = GameView.scene.graph.getNodeGroup(with: adjacentId).point
                     let newDistance = current.distance + currentPoint.difference(to: adjacentPoint).distance
                     
                     // Set minimum distance
@@ -198,7 +195,7 @@ class GraphGeneration {
             fullPath.reverse()
             
             // Convert to smooth path
-            let pathPoints = fullPath.map { graph.getNodeGroup(with: $0.id).point }
+            let pathPoints = fullPath.map { GameView.scene.graph.getNodeGroup(with: $0.id).point }
             
             var totalDistance: CGFloat = 0
             for (index, point) in pathPoints.enumerated() {
@@ -243,7 +240,7 @@ extension GraphGeneration {
         fullPath.reverse()
         
         // Convert to smooth path
-        let pathPoints = fullPath.map { graph.getNodeGroup(with: $0.id).point }
+        let pathPoints = fullPath.map { GameView.scene.graph.getNodeGroup(with: $0.id).point }
         let smoothPath = GraphGeneration.generatePath(from: pathPoints)
         
         // Make customer walk along path

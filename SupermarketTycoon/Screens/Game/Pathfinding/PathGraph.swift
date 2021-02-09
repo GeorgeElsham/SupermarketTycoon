@@ -20,7 +20,7 @@ struct NodeGroup {
 class PathGraph {
     
     static let nodeRange = 1 ... 28
-    lazy var generation = GraphGeneration(graph: self)
+    lazy var generation = GraphGeneration()
     private(set) var nodeGroups: [NodeGroup] = [
         NodeGroup(
             id: 1,

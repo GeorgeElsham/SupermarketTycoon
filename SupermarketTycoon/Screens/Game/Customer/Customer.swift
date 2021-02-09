@@ -25,12 +25,8 @@ class Customer {
     let shoppingList: [ShoppingItem]
     private(set) var graphPosition: Int
     private let node: SKNode
-    private unowned let graph: PathGraph
-    private unowned let gameInfo: GameInfo
     
-    init(in graph: PathGraph, gameInfo: GameInfo) {
-        self.graph = graph
-        self.gameInfo = gameInfo
+    init() {
         name = Customer.allNames.randomElement()!
         age = Int.random(in: 20 ... 50)
         graphPosition = 1
@@ -48,13 +44,13 @@ class Customer {
         
         // Create customer node wrapper so customer can be offset
         node = SKNode()
-        node.position = graph.getNodeGroup(with: graphPosition).point
+        node.position = GameView.scene.graph.getNodeGroup(with: graphPosition).point
         node.zPosition = ZPosition.customer.rawValue
         
         // Create customer node
         let customerNode = SKSpriteNode(imageNamed: "person_customer")
         customerNode.name = "Customer"
-        gameInfo.customers.append(CustomerNodeGroup(node: customerNode, customer: self))
+        GameView.scene.gameInfo.customers.append(CustomerNodeGroup(node: customerNode, customer: self))
         customerNode.position.y = 45
         node.addChild(customerNode)
         GameView.scene.addChild(node)
@@ -90,7 +86,7 @@ class Customer {
     /// - Parameter fromCheckouts: If leaving the store from the checkouts, the customer will walk further down past the checkout.
     func leaveStore(fromCheckouts: Bool) {
         // Make path
-        let doors = graph.getNodeGroup(with: 1).point
+        let doors = GameView.scene.graph.getNodeGroup(with: 1).point
         let points = [
             node.position,
             node.position.offset(by: CGSize(width: 0, height: -100)),
@@ -107,11 +103,11 @@ class Customer {
                 self.node.removeFromParent()
                 
                 // Remove from customers list so Person can be deallocated
-                if self.gameInfo.outsideData.customerSelection == self {
-                    self.gameInfo.outsideData.customerSelection = nil
+                if GameView.scene.gameInfo.outsideData.customerSelection == self {
+                    GameView.scene.gameInfo.outsideData.customerSelection = nil
                 }
-                guard let index = self.gameInfo.customers.firstIndex(where: { $0.customer == self }) else { return }
-                self.gameInfo.customers.remove(at: index)
+                guard let index = GameView.scene.gameInfo.customers.firstIndex(where: { $0.customer == self }) else { return }
+                GameView.scene.gameInfo.customers.remove(at: index)
             }
         }
     }
@@ -150,12 +146,12 @@ extension Customer: Equatable {
 // MARK: Ext: Shopping
 extension Customer {
     /// Customer will shop for every item on their shopping list. After, they go to the checkouts, then leave.
-    func startShopping(gameInfo: GameInfo) {
+    func startShopping() {
         shopForItem { [weak self] in
             guard let self = self else { return }
             
             // Shopped for every item, now pick best checkout
-            let orderedCheckouts = gameInfo.checkouts.sorted(by: <).filter({ $0.queue.count < 3 })
+            let orderedCheckouts = GameView.scene.gameInfo.checkouts.sorted(by: <).filter({ $0.queue.count < 3 })
             
             // Make sure there are available checkouts
             guard !orderedCheckouts.isEmpty else {
@@ -174,7 +170,7 @@ extension Customer {
                 try! checkout.reservePlaceInQueue(self)
                 
                 // Path-find
-                self.graph.generation.pathFind(customer: self, to: checkout.node) {
+                GameView.scene.graph.generation.pathFind(customer: self, to: checkout.node) {
                     try! checkout.addCustomerToQueue(self)
                 }
             } else {
@@ -182,8 +178,8 @@ extension Customer {
                 var checkout: Checkout!
                 
                 // Path-find
-                self.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count, foundCheckout: { checkoutIndex in
-                    checkout = gameInfo.checkouts[checkoutIndex]
+                GameView.scene.graph.generation.pathFindToNearestCheckout(customer: self, available: orderedCheckouts.count, foundCheckout: { checkoutIndex in
+                    checkout = GameView.scene.gameInfo.checkouts[checkoutIndex]
                     try! checkout.reservePlaceInQueue(self)
                 }) { _ in
                     try! checkout.addCustomerToQueue(self)
@@ -209,7 +205,7 @@ extension Customer {
         }
         
         // Path find to this destination
-        graph.generation.pathFind(customer: self, to: destination) {
+        GameView.scene.graph.generation.pathFind(customer: self, to: destination) {
             // Get this item
             for i in 1 ... item.quantityRequired {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Customer.pickItemTime) {
