@@ -274,12 +274,14 @@ extension GraphGeneration {
                 guard index != 0 else { continue }
                 guard index < points.count - 1 else { break }
                 
-                // Connect line from last point to just before current point
-                let vector = lastPoint.difference(to: thisPoint)
-                let unitVector = vector.unitVector
-                let newVector = unitVector.scale(by: vector.distance - min(GraphGeneration.pathCurveSize, vector.distance))
-                let newPoint = lastPoint.offset(by: newVector)
-                path.addLine(to: newPoint)
+                if thisPoint != lastPoint {
+                    // Connect line from last point to just before current point
+                    let vector = lastPoint.difference(to: thisPoint)
+                    let unitVector = vector.unitVector
+                    let newVector = unitVector.scale(by: vector.distance - min(GraphGeneration.pathCurveSize, vector.distance))
+                    let newPoint = lastPoint.offset(by: newVector)
+                    path.addLine(to: newPoint)
+                }
                 
                 // Curve round current point towards next point
                 let vector2 = thisPoint.difference(to: points[index + 1])
