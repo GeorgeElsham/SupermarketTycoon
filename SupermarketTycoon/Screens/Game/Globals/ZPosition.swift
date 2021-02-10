@@ -16,4 +16,5 @@ enum ZPosition: CGFloat {
     case debugNode = 2.5
     case debugNodeLabel = 2.6
     case customer = 5
+    case storeFront = 10
 }

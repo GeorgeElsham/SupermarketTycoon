@@ -35,11 +35,19 @@ extension GameScene {
     }
     
     private func setupBackground() {
+        // Main background
         let bg = SKSpriteNode(imageNamed: "Game")
         bg.position = center
         bg.zPosition = ZPosition.background.rawValue
         bg.size = size
         addChild(bg)
+        
+        // Store front
+        let front = SKSpriteNode(imageNamed: "Game_front")
+        front.position = CGPoint(x: frame.midX, y: frame.minY + 135.5)
+        front.zPosition = ZPosition.storeFront.rawValue
+        front.size = CGSize(width: size.width + 2, height: size.height * 0.3)
+        addChild(front)
     }
     
     private func setupMoney() {
