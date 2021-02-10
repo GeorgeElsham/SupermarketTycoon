@@ -56,6 +56,7 @@ extension GameScene {
         moneyLabel.horizontalAlignmentMode = .left
         moneyLabel.fontName = "OpenSans-Semibold"
         moneyLabel.position = CGPoint(x: 50, y: 140)
+        moneyLabel.zPosition = ZPosition.storeFront.rawValue + 0.1
         addChild(moneyLabel)
         
         // Current money/balance
@@ -64,6 +65,7 @@ extension GameScene {
         balanceLabel.horizontalAlignmentMode = .left
         balanceLabel.fontName = "OpenSans-Semibold"
         balanceLabel.position = CGPoint(x: 50, y: 80)
+        balanceLabel.zPosition = ZPosition.storeFront.rawValue + 0.1
         addChild(balanceLabel)
     }
 }
