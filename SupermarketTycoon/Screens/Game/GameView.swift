@@ -108,7 +108,12 @@ struct GameView: View {
 
 // MARK: - C: OutsideData
 class OutsideData: ObservableObject {
-    @Published var customerSelection: Customer?
+    @Published var customerSelection: Customer? {
+        didSet {
+            customerSelection?.showOutline()
+            oldValue?.hideOutline()
+        }
+    }
     @Published var money: Int = 0
     @Published var advertising: Int = 0
     @Published var checkouts: Int = 1

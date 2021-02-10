@@ -273,6 +273,21 @@ extension Customer {
 }
 
 
+// MARK: Ext: Outline
+extension Customer {
+    func showOutline() {
+        let outline = SKSpriteNode(imageNamed: "person_outline")
+        outline.name = "Outline"
+        outline.zPosition = 0.005
+        node.childNode(withName: "Customer")?.addChild(outline)
+    }
+    func hideOutline() {
+        let outline = node.childNode(withName: "Customer")?.childNode(withName: "Outline")
+        outline?.removeFromParent()
+    }
+}
+
+
 
 // MARK: - S: CustomerNodeGroup
 struct CustomerNodeGroup {
