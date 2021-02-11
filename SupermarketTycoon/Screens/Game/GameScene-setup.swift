@@ -31,6 +31,7 @@ extension GameScene {
         // Setup scene
         setupBackground()
         setupMoney()
+        setupTimer()
         gameInfo.setup()
     }
     
@@ -67,5 +68,34 @@ extension GameScene {
         balanceLabel.position = CGPoint(x: 50, y: 80)
         balanceLabel.zPosition = ZPosition.storeFront.rawValue + 0.1
         addChild(balanceLabel)
+    }
+    
+    private func setupTimer() {
+        // Make sure in timed mode
+        guard mode == .timed else { return }
+        
+        // Timer label
+        timerLabel = SKLabelNode(text: "3:00")
+        timerLabel.fontColor = .black
+        timerLabel.horizontalAlignmentMode = .left
+        timerLabel.fontName = "OpenSans-Bold"
+        timerLabel.position = CGPoint(x: 50, y: size.height - 80)
+        timerLabel.zPosition = ZPosition.storeFront.rawValue + 0.1
+        addChild(timerLabel)
+        
+        // Start timer
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer)
+    }
+    
+    private func updateTimer(_ timer: Timer) {
+        // Change time
+        if gameInfo.time.s == 0 {
+            gameInfo.time = (gameInfo.time.m - 1, 59)
+        } else {
+            gameInfo.time.s -= 1
+        }
+        
+        // Update timer label
+        timerLabel.text = "\(gameInfo.time.m):\(String(format: "%02d", gameInfo.time.s))"
     }
 }

@@ -22,7 +22,7 @@ struct ContentView: View {
                 .environmentObject(state)
             
         case .game:
-            GameView()
+            GameModeView()
                 .addMenuButton()
                 .environmentObject(state)
             

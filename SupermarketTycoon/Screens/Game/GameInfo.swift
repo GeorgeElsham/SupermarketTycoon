@@ -13,8 +13,15 @@ import SwiftUI
 /// Stores the information about the game, such as if it is paused or the money available.
 class GameInfo {
     
-    var customers = [CustomerNodeGroup]()
     let outsideData: OutsideData
+    var customers = [CustomerNodeGroup]()
+    var time: (m: Int, s: Int) = (3, 0) {
+        didSet {
+            if time == (0, 0) {
+                outsideData.hasEnded = true
+            }
+        }
+    }
     
     /// Whether the game is paused.
     private(set) var isPaused: Bool {

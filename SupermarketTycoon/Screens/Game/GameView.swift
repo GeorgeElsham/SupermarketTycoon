@@ -14,8 +14,10 @@ import SwiftUI
 struct GameView: View {
     
     static var scene: GameScene!
-    @ObservedObject private var outsideData = OutsideData()
+    @EnvironmentObject private var outsideData: OutsideData
     @State private var categorySelection: Category = .upgrades
+    @State private var setup = false
+    private let mode: GameMode
     
     var preferredCategorySelection: Category {
         if outsideData.customerSelection == nil {
@@ -25,82 +27,91 @@ struct GameView: View {
         }
     }
     
-    init() {
-        // Remake scene
-        let gameScene = GameScene(size: CGSize(width: 1440, height: 900), outsideData: outsideData)
-        gameScene.scaleMode = .aspectFit
-        GameView.scene = gameScene
+    init(mode: GameMode) {
+        self.mode = mode
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                VStack(alignment: .leading) {
-                    Text("Supermarket Tycoon")
-                        .bigTitle()
-                        .padding(.vertical)
-                        .padding(.bottom, 12)
-                    
-                    VStack(spacing: 0) {
-                        ForEach(Category.allCases) { upgradeType in
-                            Text(upgradeType.rawValue)
-                                .font(.largeTitle)
-                                .fontWeight(.semibold)
-                                .underline(if: preferredCategorySelection == upgradeType)
-                                .foregroundColor(.black)
-                                .padding(8)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .cornerRadius(5)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    categorySelection = upgradeType
-                                }
+        if setup {
+            NavigationView {
+                VStack {
+                    VStack(alignment: .leading) {
+                        Text("Supermarket Tycoon")
+                            .bigTitle()
+                            .padding(.vertical)
+                            .padding(.bottom, 12)
+                        
+                        VStack(spacing: 0) {
+                            ForEach(Category.allCases) { upgradeType in
+                                Text(upgradeType.rawValue)
+                                    .font(.largeTitle)
+                                    .fontWeight(.semibold)
+                                    .underline(if: preferredCategorySelection == upgradeType)
+                                    .foregroundColor(.black)
+                                    .padding(8)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .cornerRadius(5)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        categorySelection = upgradeType
+                                    }
+                            }
                         }
-                    }
-                    
-                    Spacer()
-                }
-                .frame(maxHeight: .infinity)
-                
-                VStack(alignment: .leading) {
-                    Text(preferredCategorySelection.rawValue)
-                        .bigTitle()
-                        .padding(.top)
-                    
-                    switch preferredCategorySelection {
-                    case .upgrades:     UpgradesView()
-                    case .customer:     CustomerView()
-                    }
-                }
-                .frame(maxHeight: .infinity)
-                .environmentObject(outsideData)
-            }
-            .padding()
-            .background(Color("Grass"))
-            
-            GeometryReader { geo in
-                ZStack {
-                    // Game scene
-                    SpriteView(scene: GameView.scene)
-                    
-                    // Green bars top and bottom
-                    VStack {
-                        Color("Grass")
-                            .frame(height: geo.size.height / 2 - geo.size.width / 3.2 + 1)
                         
                         Spacer()
+                    }
+                    .frame(maxHeight: .infinity)
+                    
+                    VStack(alignment: .leading) {
+                        Text(preferredCategorySelection.rawValue)
+                            .bigTitle()
+                            .padding(.top)
                         
-                        Color("Grass")
-                            .frame(height: barHeight(for: geo.size))
-                            .padding(.trailing, Global.debugMode ? 200 : 0)
+                        switch preferredCategorySelection {
+                        case .upgrades:     UpgradesView()
+                        case .customer:     CustomerView()
+                        }
+                    }
+                    .frame(maxHeight: .infinity)
+                }
+                .padding()
+                .background(Color("Grass"))
+                
+                GeometryReader { geo in
+                    ZStack {
+                        // Game scene
+                        SpriteView(scene: GameView.scene)
+                        
+                        // Green bars top and bottom
+                        VStack {
+                            Color("Grass")
+                                .frame(height: geo.size.height / 2 - geo.size.width / 3.2 + 1)
+                            
+                            Spacer()
+                            
+                            Color("Grass")
+                                .frame(height: barHeight(for: geo.size))
+                                .padding(.trailing, Global.debugMode ? 200 : 0)
+                        }
                     }
                 }
             }
+        } else {
+            Spacer()
+                .onAppear(perform: setupScene)
         }
     }
     
     private func barHeight(for size: CGSize) -> CGFloat {
         size.height / 2 - size.width / 3.2 + 1
+    }
+    
+    private func setupScene() {
+        // Remake scene
+        let gameScene = GameScene(size: CGSize(width: 1440, height: 900), mode: mode, outsideData: outsideData)
+        gameScene.scaleMode = .aspectFit
+        GameView.scene = gameScene
+        setup = true
     }
 }
 
@@ -108,6 +119,7 @@ struct GameView: View {
 
 // MARK: - C: OutsideData
 class OutsideData: ObservableObject {
+    @Published var hasEnded = false
     @Published var customerSelection: Customer? {
         didSet {
             customerSelection?.showOutline()

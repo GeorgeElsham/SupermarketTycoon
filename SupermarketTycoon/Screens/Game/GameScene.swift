@@ -13,15 +13,18 @@ import SwiftUI
 class GameScene: SKScene {
     
     let gameInfo: GameInfo
+    let mode: GameMode
     var balanceLabel: SKLabelNode!
+    var timerLabel: SKLabelNode!
     var graph: PathGraph!
     
     var center: CGPoint {
         CGPoint(x: frame.midX, y: frame.midY)
     }
     
-    init(size: CGSize, outsideData: OutsideData) {
+    init(size: CGSize, mode: GameMode, outsideData: OutsideData) {
         gameInfo = GameInfo(outsideData: outsideData)
+        self.mode = mode
         super.init(size: size)
     }
     
