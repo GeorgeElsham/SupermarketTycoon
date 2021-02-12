@@ -156,7 +156,7 @@ struct LeaderBoardView: View {
                         }
                     } else {
                         BackgroundBox {
-                            Text("Empty")
+                            Text(" ")
                                 .font(.custom("OpenSans-Semibold", size: 25))
                         }
                     }
