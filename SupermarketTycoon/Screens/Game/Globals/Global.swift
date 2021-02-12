@@ -10,5 +10,5 @@ import Foundation
 
 /// Global variables across whole program.
 enum Global {
-    static let debugMode: Bool = true
+    static let debugMode: Bool = false
 }
