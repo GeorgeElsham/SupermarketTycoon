@@ -129,6 +129,7 @@ class OutsideData: ObservableObject {
     @Published var money: Int = 0
     @Published var advertising: Int = 0
     @Published var checkouts: Int = 1
+    @Published var speedBoost: Bool = false
 }
 
 
@@ -171,6 +172,20 @@ struct UpgradesView: View {
                     reachedLimit: outsideData.checkouts == 6
                 ) {
                     try? GameView.scene.gameInfo.unlockNextCheckout()
+                }
+                
+                UpgradeItem(
+                    "Speed boost",
+                    cost: 30,
+                    value: outsideData.speedBoost ? "Yes" : "No",
+                    reachedLimit: outsideData.speedBoost
+                ) {
+                    try? GameView.scene.gameInfo.removeMoney(amount: 30)
+                    outsideData.speedBoost = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                        outsideData.speedBoost = false
+                    }
                 }
             }
             .foregroundColor(.black)

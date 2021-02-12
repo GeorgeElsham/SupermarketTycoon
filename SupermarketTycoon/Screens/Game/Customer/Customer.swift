@@ -28,6 +28,10 @@ class Customer {
     private let node: SKNode
     private let basketNode: SKSpriteNode
     
+    private var actualWalkingSpeed: CGFloat {
+        Customer.walkingSpeed * (isAngry ? 1.3 : 1) * (GameView.scene.gameInfo.outsideData.speedBoost ? 2 : 1)
+    }
+    
     init() {
         name = Customer.allNames.randomElement()!
         age = Int.random(in: 20 ... 50)
@@ -145,7 +149,7 @@ class Customer {
     ///   - completion: Ran when node has got to destination.
     private func follow(path: CGPath, completion: @escaping () -> Void) {
         // Actions
-        let follow = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed * (isAngry ? 1.3 : 1))
+        let follow = SKAction.follow(path, asOffset: false, orientToPath: false, speed: actualWalkingSpeed)
         let zPos = SKAction.customAction(withDuration: 0.1) { [weak self] node, timeElapsed in
             guard let self = self else { return }
             let heightProp = self.node.position.y / GameView.scene.size.height
