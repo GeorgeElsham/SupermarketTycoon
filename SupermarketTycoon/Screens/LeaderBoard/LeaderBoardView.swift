@@ -56,9 +56,8 @@ struct LeaderBoardView: View {
         scores.prefix(10).enumerated().map(ScoreItem.init)
     }
     var bestScore: ScoreItem? {
-        #warning("Need input to get player name. Also add new score when game finishes.")
         // Get personal best
-        let currentFiltered = scores.filter({ $0.name == "George" }).sorted(by: >)
+        let currentFiltered = scores.filter({ $0.name == "Player" }).sorted(by: >)
         guard !currentFiltered.isEmpty else { return nil }
         
         // Get ScoreItem
@@ -95,7 +94,7 @@ struct LeaderBoardView: View {
                             HStack {
                                 Button("Add") {
                                     let score = Score(context: moc)
-                                    score.name = Int.random(in: 1 ... 5) == 1 ? "George" : Customer.allNames.randomElement()!
+                                    score.name = Int.random(in: 1 ... 5) == 1 ? "Player" : Customer.allNames.randomElement()!
                                     score.money = Int64.random(in: 1 ... 1000)
                                     try? moc.save()
                                 }

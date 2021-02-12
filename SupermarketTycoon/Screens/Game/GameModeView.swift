@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - S: GameModeView
 struct GameModeView: View {
     
+    @Environment(\.managedObjectContext) private var moc
     @EnvironmentObject private var state: AppState
     @ObservedObject private var outsideData = OutsideData()
     @State private var mode: GameMode?
@@ -43,6 +44,12 @@ struct GameModeView: View {
             }
             .foregroundColor(.black)
             .baseBackground()
+            .onAppear {
+                let score = Score(context: moc)
+                score.name = "Player"
+                score.money = Int64(outsideData.money)
+                try? moc.save()
+            }
         } else {
             if let mode = mode {
                 GameView(mode: mode)
