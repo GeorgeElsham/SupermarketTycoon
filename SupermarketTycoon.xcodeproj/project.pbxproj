@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F307FF7425D5A7E300D5A3C9 /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307FF7325D5A7E300D5A3C9 /* LeaderBoardView.swift */; };
 		F30AC2B1257A5BF6004CF275 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AD257A5BF6004CF275 /* OpenSans-Regular.ttf */; };
 		F30AC2B2257A5BF6004CF275 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AE257A5BF6004CF275 /* OpenSans-Semibold.ttf */; };
 		F30AC2B3257A5BF6004CF275 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F307FF7325D5A7E300D5A3C9 /* LeaderBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
 		F30AC2AD257A5BF6004CF275 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		F30AC2AE257A5BF6004CF275 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		F30AC2AF257A5BF6004CF275 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -92,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F307FF7225D5A7BE00D5A3C9 /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				F307FF7325D5A7E300D5A3C9 /* LeaderBoardView.swift */,
+			);
+			path = LeaderBoard;
+			sourceTree = "<group>";
+		};
 		F30AC2A6257A5BAD004CF275 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 				F30C9FB0257F7C51003CCCED /* Menu */,
 				F3CAC6E32580FE0300EBF08E /* Game */,
 				F349C80525821A3000146D50 /* Instructions */,
+				F307FF7225D5A7BE00D5A3C9 /* LeaderBoard */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 				F3A9958A25CF2B6E002ED034 /* Ext-Text.swift in Sources */,
 				F3CAA6F225791D3C00089750 /* ContentView.swift in Sources */,
 				F34DFAEE257F822600C24E18 /* LargeButton.swift in Sources */,
+				F307FF7425D5A7E300D5A3C9 /* LeaderBoardView.swift in Sources */,
 				F3CAA6F025791D3C00089750 /* SupermarketTycoonApp.swift in Sources */,
 				F350843A25C037AA001324A0 /* GraphGeneration.swift in Sources */,
 				F3A9958125CEFEE6002ED034 /* Scaling.swift in Sources */,

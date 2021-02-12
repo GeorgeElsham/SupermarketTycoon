@@ -33,7 +33,7 @@ struct ContentView: View {
                 .environmentObject(state)
             
         case .leaderBoard:
-            Text("Leader board")
+            LeaderBoardView()
                 .foregroundColor(.black)
                 .addMenuButton()
                 .baseBackground()
@@ -47,9 +47,9 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         ContentView()
-//            .environment(
-//                \.managedObjectContext,
-//                PersistenceController.preview.container.viewContext
-//            )
+            .environment(
+                \.managedObjectContext,
+                PersistenceController.preview.container.viewContext
+            )
     }
 }

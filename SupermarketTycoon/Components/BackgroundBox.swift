@@ -25,7 +25,7 @@ struct BackgroundBox<Content: View>: View {
                 maxHeight: .infinity,
                 alignment: .topLeading
             )
-            .padding()
+            .padding(18)
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.black, lineWidth: 1)

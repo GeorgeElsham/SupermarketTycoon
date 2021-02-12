@@ -13,31 +13,25 @@ struct PersistenceController {
     static let shared = PersistenceController()
     
     static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
+        let result = PersistenceController()
         let viewContext = result.container.viewContext
         
         do {
             try viewContext.save()
         } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            fatalError("Unresolved error: '\(error.localizedDescription)'.")
         }
         return result
     }()
     
     let container: NSPersistentContainer
     
-    init(inMemory: Bool = false) {
+    init() {
         container = NSPersistentContainer(name: "SupermarketTycoon")
         
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        container.loadPersistentStores { _, error in
+            guard let error = error else { return }
+            fatalError("Core Data error: '\(error.localizedDescription)'.")
         }
-        
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
     }
 }
