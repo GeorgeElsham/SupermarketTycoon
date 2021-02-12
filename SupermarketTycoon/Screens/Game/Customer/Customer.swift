@@ -23,6 +23,7 @@ class Customer {
     let name: String
     let age: Int
     let shoppingList: [ShoppingItem]
+    private(set) var isAngry = false
     private(set) var graphPosition: Int
     private let node: SKNode
     private let basketNode: SKSpriteNode
@@ -90,15 +91,31 @@ class Customer {
     }
     
     /// Customer walks from current position to door of store and leaves.
-    /// - Parameter fromCheckouts: If leaving the store from the checkouts, the customer will walk further down past the checkout.
-    func leaveStore(fromCheckouts: Bool) {
+    /// - Parameters:
+    ///   - fromCheckouts: If leaving the store from the checkouts, the customer will walk further down past the checkout.
+    ///   - completion: Ran when customer has got to doors and faded out.
+    func leaveStore(fromCheckouts: Bool, completion: @escaping () -> Void = {}) {
         // Make path
         let doors = GameView.scene.graph.getNodeGroup(with: 1).point
-        let points = [
-            node.position,
-            node.position.offset(by: CGSize(width: 0, height: -100)),
-            doors
-        ]
+        let points: [CGPoint]
+        
+        // Generate path
+        if fromCheckouts {
+            points = [
+                node.position,
+                node.position.offset(by: CGSize(width: 0, height: -100)),
+                doors
+            ]
+        } else {
+            let node10Point = GameView.scene.graph.getNodeGroup(with: 10).point
+            
+            points = [
+                node.position,
+                node10Point.offset(by: CGSize(width: .random(in: -70 ... 70), height: .random(in: -70 ... 0))),
+                doors.offset(by: CGSize(width: .random(in: -30 ... 30), height: 0))
+            ]
+        }
+        
         let path = GraphGeneration.generatePath(from: points)
         
         // Move
@@ -106,6 +123,9 @@ class Customer {
             // Fade out and disappear
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
             self.node.run(fadeOut) {
+                // Run completion
+                completion()
+                
                 // Remove node from scene
                 self.node.removeFromParent()
                 
@@ -125,7 +145,7 @@ class Customer {
     ///   - completion: Ran when node has got to destination.
     private func follow(path: CGPath, completion: @escaping () -> Void) {
         // Actions
-        let follow = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed)
+        let follow = SKAction.follow(path, asOffset: false, orientToPath: false, speed: Customer.walkingSpeed * (isAngry ? 1.3 : 1))
         let zPos = SKAction.customAction(withDuration: 0.1) { [weak self] node, timeElapsed in
             guard let self = self else { return }
             let heightProp = self.node.position.y / GameView.scene.size.height
@@ -162,9 +182,16 @@ extension Customer {
             
             // Make sure there are available checkouts
             guard !orderedCheckouts.isEmpty else {
-                #warning("Change how customers 'rage' out of store.")
-                self.node.alpha = 0.5
-                self.leaveStore(fromCheckouts: false)
+                // Add angry image
+                self.isAngry = true
+                let angry = SKSpriteNode(imageNamed: "angry")
+                angry.position.y = 125
+                self.node.addChild(angry)
+                
+                // Leave
+                self.leaveStore(fromCheckouts: false) {
+                    angry.removeFromParent()
+                }
                 return
             }
             
